@@ -1,0 +1,2019 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Business Valuation Questionnaire — SME Association of Australia</title>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --navy: #0d1b3e;
+    --navy-light: #1a2d5a;
+    --gold: #b8972a;
+    --gold-light: #d4ae45;
+    --gold-bg: #f5eed8;
+    --cream: #f9f7f4;
+    --cream-dark: #f0ece4;
+    --green: #2d7a3a;
+    --green-bg: #e8f5ea;
+    --amber: #b8640a;
+    --amber-bg: #fdf0e0;
+    --red: #b81a1a;
+    --red-bg: #fde8e8;
+    --gray: #6b7280;
+    --border: #d1c9b8;
+    --white: #ffffff;
+  }
+
+  body {
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    background: var(--cream);
+    color: var(--navy);
+    font-size: 15px;
+    line-height: 1.6;
+    min-height: 100vh;
+  }
+
+  /* ── HEADER ── */
+  .site-header {
+    background: var(--navy);
+    color: var(--white);
+    padding: 0 24px;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+  }
+  .site-header .logo {
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    color: var(--gold-light);
+  }
+  .site-header .logo span { color: var(--white); font-weight: 400; }
+  .header-tag {
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: rgba(255,255,255,0.5);
+  }
+
+  /* ── PROGRESS BAR ── */
+  .progress-bar {
+    background: var(--navy-light);
+    padding: 12px 24px;
+    position: sticky;
+    top: 60px;
+    z-index: 99;
+    overflow-x: auto;
+    border-bottom: 2px solid var(--gold);
+  }
+  .progress-pills {
+    display: flex;
+    gap: 6px;
+    min-width: max-content;
+    align-items: center;
+  }
+  .pill {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 5px 12px;
+    border-radius: 20px;
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    cursor: pointer;
+    transition: all 0.2s;
+    border: 1.5px solid rgba(255,255,255,0.15);
+    color: rgba(255,255,255,0.45);
+    white-space: nowrap;
+  }
+  .pill .pill-num {
+    width: 18px; height: 18px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.12);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 10px;
+  }
+  .pill.completed {
+    color: #4ade80;
+    border-color: #4ade80;
+  }
+  .pill.completed .pill-num { background: #4ade80; color: var(--navy); }
+  .pill.active {
+    background: var(--gold);
+    color: var(--navy);
+    border-color: var(--gold-light);
+  }
+  .pill.active .pill-num { background: var(--navy); color: var(--gold); }
+
+  /* ── MAIN LAYOUT ── */
+  .main-wrap {
+    max-width: 860px;
+    margin: 0 auto;
+    padding: 40px 24px 80px;
+  }
+
+  /* ── WELCOME SCREEN ── */
+  .welcome-screen {
+    text-align: center;
+    padding: 60px 20px;
+  }
+  .welcome-screen .badge {
+    display: inline-block;
+    background: var(--gold-bg);
+    color: var(--gold);
+    border: 1.5px solid var(--gold);
+    padding: 6px 18px;
+    border-radius: 20px;
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 24px;
+  }
+  .welcome-screen h1 {
+    font-family: Georgia, serif;
+    font-size: 36px;
+    color: var(--navy);
+    margin-bottom: 16px;
+    line-height: 1.2;
+  }
+  .welcome-screen p {
+    color: var(--gray);
+    font-size: 16px;
+    max-width: 560px;
+    margin: 0 auto 32px;
+  }
+  .welcome-stats {
+    display: flex;
+    justify-content: center;
+    gap: 32px;
+    margin-bottom: 40px;
+    flex-wrap: wrap;
+  }
+  .stat-item { text-align: center; }
+  .stat-item .num {
+    font-size: 28px;
+    font-weight: 700;
+    color: var(--gold);
+    font-family: Georgia, serif;
+  }
+  .stat-item .lbl { font-size: 12px; color: var(--gray); text-transform: uppercase; letter-spacing: 0.5px; }
+  .btn-begin {
+    background: var(--gold);
+    color: var(--navy);
+    border: none;
+    padding: 16px 48px;
+    font-size: 14px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  .btn-begin:hover { background: var(--gold-light); transform: translateY(-1px); }
+
+  /* ── SECTION CARD ── */
+  .section-card {
+    background: var(--white);
+    border-radius: 8px;
+    box-shadow: 0 2px 12px rgba(13,27,62,0.08);
+    overflow: hidden;
+    margin-bottom: 24px;
+  }
+  .section-header {
+    background: var(--navy);
+    color: var(--white);
+    padding: 24px 32px;
+  }
+  .section-header .sec-label {
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    color: var(--gold-light);
+    margin-bottom: 6px;
+    font-weight: 600;
+  }
+  .section-header h2 {
+    font-family: Georgia, serif;
+    font-size: 22px;
+    font-weight: 400;
+  }
+  .section-header p {
+    font-size: 13px;
+    color: rgba(255,255,255,0.65);
+    margin-top: 8px;
+  }
+  .section-body { padding: 32px; }
+
+  /* ── QUESTION CARD ── */
+  .q-card {
+    background: var(--cream);
+    border-left: 4px solid var(--gold);
+    border-radius: 0 6px 6px 0;
+    padding: 20px 24px;
+    margin-bottom: 20px;
+  }
+  .q-code {
+    font-size: 10px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    color: var(--gold);
+    margin-bottom: 4px;
+  }
+  .q-text {
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--navy);
+    margin-bottom: 6px;
+  }
+  .q-hint {
+    font-size: 13px;
+    color: var(--gray);
+    font-style: italic;
+    margin-bottom: 14px;
+  }
+
+  /* ── INPUTS ── */
+  input[type=text], input[type=email], input[type=tel],
+  input[type=number], input[type=date], select, textarea {
+    width: 100%;
+    padding: 10px 14px;
+    border: 1.5px solid var(--border);
+    border-radius: 4px;
+    font-size: 14px;
+    color: var(--navy);
+    background: var(--white);
+    outline: none;
+    transition: border-color 0.2s, box-shadow 0.2s;
+    font-family: inherit;
+  }
+  input:focus, select:focus, textarea:focus {
+    border-color: var(--gold);
+    box-shadow: 0 0 0 3px rgba(184,151,42,0.12);
+  }
+  .input-prefix {
+    display: flex;
+    align-items: center;
+  }
+  .input-prefix .prefix {
+    background: var(--cream-dark);
+    border: 1.5px solid var(--border);
+    border-right: none;
+    padding: 10px 12px;
+    border-radius: 4px 0 0 4px;
+    font-size: 14px;
+    color: var(--gray);
+    font-weight: 600;
+  }
+  .input-prefix input {
+    border-radius: 0 4px 4px 0;
+  }
+  .input-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+  }
+  .input-row.three { grid-template-columns: 1fr 1fr 1fr; }
+  label.field-label {
+    display: block;
+    font-size: 12px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: var(--gray);
+    margin-bottom: 6px;
+  }
+  .field-wrap { margin-bottom: 4px; }
+
+  /* ── RADIO / CHECKBOX ── */
+  .radio-group, .check-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  .radio-group.horizontal { flex-direction: row; flex-wrap: wrap; gap: 10px; }
+  .radio-opt, .check-opt {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    cursor: pointer;
+    padding: 10px 14px;
+    border: 1.5px solid var(--border);
+    border-radius: 4px;
+    background: var(--white);
+    transition: all 0.15s;
+    font-size: 14px;
+    color: var(--navy);
+  }
+  .radio-opt:hover, .check-opt:hover { border-color: var(--gold); background: var(--gold-bg); }
+  .radio-opt.selected, .check-opt.selected {
+    border-color: var(--gold);
+    background: var(--gold-bg);
+    font-weight: 600;
+  }
+  .radio-opt input, .check-opt input { margin-top: 2px; accent-color: var(--gold); }
+  .radio-opt .opt-label { flex: 1; }
+  .radio-opt .opt-desc { font-size: 12px; color: var(--gray); margin-top: 2px; font-weight: 400; }
+
+  /* ── VALUATION CALCULATOR ── */
+  .valuation-box {
+    background: var(--navy);
+    border-radius: 8px;
+    padding: 24px 28px;
+    margin-bottom: 28px;
+    color: var(--white);
+  }
+  .valuation-box .vb-label {
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    color: var(--gold-light);
+    font-weight: 600;
+    margin-bottom: 16px;
+  }
+  .vb-formula {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex-wrap: wrap;
+    margin-bottom: 16px;
+  }
+  .vb-item { text-align: center; }
+  .vb-item .vb-val {
+    font-size: 22px;
+    font-weight: 700;
+    font-family: Georgia, serif;
+    color: var(--gold-light);
+  }
+  .vb-item .vb-lbl { font-size: 11px; color: rgba(255,255,255,0.5); margin-top: 2px; }
+  .vb-op { font-size: 24px; color: rgba(255,255,255,0.3); font-weight: 300; }
+  .vb-result {
+    background: rgba(255,255,255,0.07);
+    border-radius: 6px;
+    padding: 16px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+  .vb-result .range-label { font-size: 13px; color: rgba(255,255,255,0.6); }
+  .vb-result .range-val {
+    font-size: 24px;
+    font-weight: 700;
+    font-family: Georgia, serif;
+    color: var(--gold-light);
+  }
+  .indicator-pills { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 14px; }
+  .ind-pill {
+    padding: 4px 12px;
+    border-radius: 12px;
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+  .ind-pill.good { background: var(--green-bg); color: var(--green); }
+  .ind-pill.warn { background: var(--amber-bg); color: var(--amber); }
+  .ind-pill.poor { background: var(--red-bg); color: var(--red); }
+
+  /* ── NAVIGATION BUTTONS ── */
+  .nav-buttons {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 32px;
+    padding-top: 24px;
+    border-top: 1px solid var(--border);
+  }
+  .btn {
+    padding: 12px 32px;
+    font-size: 13px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.2s;
+    border: 2px solid transparent;
+  }
+  .btn-next {
+    background: var(--gold);
+    color: var(--navy);
+    border-color: var(--gold);
+  }
+  .btn-next:hover { background: var(--gold-light); border-color: var(--gold-light); transform: translateY(-1px); }
+  .btn-prev {
+    background: transparent;
+    color: var(--navy);
+    border-color: var(--border);
+  }
+  .btn-prev:hover { border-color: var(--navy); }
+  .btn-submit {
+    background: var(--green);
+    color: var(--white);
+    border-color: var(--green);
+  }
+  .btn-submit:hover { background: #256b31; }
+
+  /* ── RESULTS ── */
+  .results-screen { display: none; }
+  .results-hero {
+    background: var(--navy);
+    color: var(--white);
+    padding: 48px 40px;
+    border-radius: 8px;
+    text-align: center;
+    margin-bottom: 28px;
+  }
+  .results-hero .hero-label {
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: var(--gold-light);
+    font-weight: 600;
+    margin-bottom: 12px;
+  }
+  .results-hero h2 {
+    font-family: Georgia, serif;
+    font-size: 32px;
+    margin-bottom: 8px;
+  }
+  .results-hero .range-display {
+    font-size: 42px;
+    font-weight: 700;
+    font-family: Georgia, serif;
+    color: var(--gold-light);
+    margin: 20px 0;
+  }
+  .results-hero p { font-size: 14px; color: rgba(255,255,255,0.6); }
+  .results-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    margin-bottom: 28px;
+  }
+  .result-card {
+    background: var(--white);
+    border-radius: 8px;
+    padding: 24px;
+    box-shadow: 0 2px 8px rgba(13,27,62,0.06);
+  }
+  .result-card h3 {
+    font-size: 13px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: var(--gold);
+    margin-bottom: 16px;
+  }
+  .score-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 0;
+    border-bottom: 1px solid var(--cream-dark);
+    font-size: 13px;
+  }
+  .score-row:last-child { border-bottom: none; }
+  .score-row .score-label { color: var(--gray); }
+  .score-badge {
+    padding: 2px 10px;
+    border-radius: 10px;
+    font-size: 11px;
+    font-weight: 700;
+  }
+  .score-badge.good { background: var(--green-bg); color: var(--green); }
+  .score-badge.ok { background: var(--amber-bg); color: var(--amber); }
+  .score-badge.poor { background: var(--red-bg); color: var(--red); }
+
+  /* ── DISCLAIMER ── */
+  .disclaimer {
+    background: var(--cream-dark);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 16px 20px;
+    font-size: 12px;
+    color: var(--gray);
+    margin-top: 24px;
+    line-height: 1.7;
+  }
+
+  /* ── HIDDEN ── */
+  .section-view { display: none; }
+  .section-view.active { display: block; }
+
+  /* ── AUTOSAVE NOTICE ── */
+  .autosave-notice {
+    font-size: 11px;
+    color: var(--gray);
+    text-align: right;
+    margin-bottom: 8px;
+  }
+  .autosave-notice.saved { color: var(--green); }
+
+  /* ── REQUIRED STAR ── */
+  .req { color: var(--red); margin-left: 2px; }
+
+  /* ── SECTION INTRO ── */
+  .section-intro {
+    background: var(--gold-bg);
+    border: 1px solid rgba(184,151,42,0.25);
+    border-radius: 6px;
+    padding: 14px 18px;
+    font-size: 13px;
+    color: var(--navy);
+    margin-bottom: 24px;
+    line-height: 1.7;
+  }
+  .section-intro strong { color: var(--gold); }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 640px) {
+    .main-wrap { padding: 20px 16px 60px; }
+    .section-body { padding: 20px 18px; }
+    .input-row { grid-template-columns: 1fr; }
+    .input-row.three { grid-template-columns: 1fr; }
+    .results-grid { grid-template-columns: 1fr; }
+    .vb-formula { justify-content: center; }
+    .welcome-screen h1 { font-size: 26px; }
+  }
+
+  @media print {
+    .site-header, .progress-bar, .nav-buttons, .btn-begin { display: none; }
+    .section-view { display: block !important; }
+  }
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header class="site-header">
+  <div class="logo">SME Association <span>of Australia</span></div>
+  <div class="header-tag">Business Valuation Assessment</div>
+</header>
+
+<!-- PROGRESS BAR -->
+<nav class="progress-bar" id="progressBar" style="display:none">
+  <div class="progress-pills" id="progressPills"></div>
+</nav>
+
+<!-- MAIN CONTENT -->
+<div class="main-wrap">
+  <div class="autosave-notice" id="autosaveNotice" style="display:none">Progress auto-saved</div>
+
+  <!-- ═══════════════════════════════ WELCOME ═══════════════════════════════ -->
+  <div class="section-view active" id="view-welcome">
+    <div class="welcome-screen">
+      <div class="badge">Preliminary Assessment Tool</div>
+      <h1>Business Valuation<br>Questionnaire</h1>
+      <p>Answer 14 sections of structured questions to receive a preliminary valuation range, identify your key value drivers, and prepare for an advisor conversation.</p>
+      <div class="welcome-stats">
+        <div class="stat-item"><div class="num">14</div><div class="lbl">Sections</div></div>
+        <div class="stat-item"><div class="num">20–35</div><div class="lbl">Minutes</div></div>
+        <div class="stat-item"><div class="num">60+</div><div class="lbl">Questions</div></div>
+      </div>
+      <button class="btn-begin" onclick="startAssessment()">Begin Assessment</button>
+      <div class="disclaimer" style="max-width:560px;margin:32px auto 0;text-align:left">
+        <strong>Disclaimer:</strong> This tool provides a preliminary indicative valuation only. It is not financial advice. Results should be reviewed with a qualified M&A advisor. All data is handled in accordance with Australian privacy legislation.
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════ SECTION 1: INTAKE ═══════════════════════════════ -->
+  <div class="section-view" id="view-1">
+    <div class="section-card">
+      <div class="section-header">
+        <div class="sec-label">Section 1 of 13</div>
+        <h2>Business Details &amp; Primary Contact</h2>
+        <p>This information anchors the valuation report and is kept strictly confidential.</p>
+      </div>
+      <div class="section-body">
+        <div class="section-intro">
+          <strong>Why we ask:</strong> Accurate contact and business details allow your advisor to contextualise the valuation and follow up with a personalised report. All fields marked <span style="color:var(--red)">*</span> are required.
+        </div>
+
+        <div class="q-card">
+          <div class="q-code">Business Details</div>
+          <div class="q-text">Tell us about your business</div>
+          <div class="q-hint">Please provide the registered and trading names of your business.</div>
+          <div class="input-row">
+            <div class="field-wrap">
+              <label class="field-label">Legal Business Name <span class="req">*</span></label>
+              <input type="text" id="legalName" placeholder="e.g. Acme Holdings Pty Ltd" oninput="saveData()">
+            </div>
+            <div class="field-wrap">
+              <label class="field-label">Trading Name (if different)</label>
+              <input type="text" id="tradingName" placeholder="e.g. Acme Solutions" oninput="saveData()">
+            </div>
+          </div>
+        </div>
+
+        <div class="q-card">
+          <div class="q-code">Classification</div>
+          <div class="q-text">What industry does your business operate in? <span class="req">*</span></div>
+          <div class="q-hint">Select the ANZSIC category that best describes your primary business activity.</div>
+          <select id="industry" onchange="saveData()">
+            <option value="">— Select industry —</option>
+            <option value="agri">Agriculture, Forestry &amp; Fishing</option>
+            <option value="mining">Mining</option>
+            <option value="mfg">Manufacturing</option>
+            <option value="util">Electricity, Gas, Water &amp; Waste Services</option>
+            <option value="const">Construction</option>
+            <option value="trade">Wholesale Trade</option>
+            <option value="retail">Retail Trade</option>
+            <option value="accom">Accommodation &amp; Food Services</option>
+            <option value="transport">Transport, Postal &amp; Warehousing</option>
+            <option value="media">Information Media &amp; Telecommunications</option>
+            <option value="finance">Financial &amp; Insurance Services</option>
+            <option value="prop">Rental, Hiring &amp; Real Estate</option>
+            <option value="prof">Professional, Scientific &amp; Technical Services</option>
+            <option value="admin">Administrative &amp; Support Services</option>
+            <option value="health">Health Care &amp; Social Assistance</option>
+            <option value="edu">Education &amp; Training</option>
+            <option value="arts">Arts &amp; Recreation Services</option>
+            <option value="other">Other Services</option>
+          </select>
+        </div>
+
+        <div class="q-card">
+          <div class="q-code">Size &amp; Age</div>
+          <div class="q-text">Business size and history</div>
+          <div class="input-row three">
+            <div class="field-wrap">
+              <label class="field-label">Headcount (FTE) <span class="req">*</span></label>
+              <input type="number" id="headcount" placeholder="e.g. 12" min="0" oninput="saveData()">
+            </div>
+            <div class="field-wrap">
+              <label class="field-label">Year Founded</label>
+              <input type="number" id="yearFounded" placeholder="e.g. 2010" min="1800" max="2025" oninput="saveData()">
+            </div>
+            <div class="field-wrap">
+              <label class="field-label">Owner's Age</label>
+              <input type="number" id="ownerAge" placeholder="e.g. 52" min="18" max="99" oninput="saveData()">
+            </div>
+          </div>
+        </div>
+
+        <div class="q-card">
+          <div class="q-code">Primary Contact</div>
+          <div class="q-text">Who is completing this assessment? <span class="req">*</span></div>
+          <div class="input-row">
+            <div class="field-wrap">
+              <label class="field-label">Contact Name <span class="req">*</span></label>
+              <input type="text" id="contactName" placeholder="Full name" oninput="saveData()">
+            </div>
+            <div class="field-wrap">
+              <label class="field-label">Title / Role</label>
+              <input type="text" id="contactTitle" placeholder="e.g. Managing Director" oninput="saveData()">
+            </div>
+            <div class="field-wrap">
+              <label class="field-label">Email Address <span class="req">*</span></label>
+              <input type="email" id="contactEmail" placeholder="you@company.com.au" oninput="saveData()">
+            </div>
+            <div class="field-wrap">
+              <label class="field-label">Mobile</label>
+              <input type="tel" id="contactMobile" placeholder="04xx xxx xxx" oninput="saveData()">
+            </div>
+          </div>
+        </div>
+
+        <div class="q-card">
+          <div class="q-code">Advisor Details</div>
+          <div class="q-text">Advisor information (if applicable)</div>
+          <div class="input-row">
+            <div class="field-wrap">
+              <label class="field-label">Advisor Name</label>
+              <input type="text" id="advisorName" placeholder="Full name" oninput="saveData()">
+            </div>
+            <div class="field-wrap">
+              <label class="field-label">Advisor Email</label>
+              <input type="email" id="advisorEmail" placeholder="advisor@firm.com.au" oninput="saveData()">
+            </div>
+          </div>
+        </div>
+
+        <div class="q-card">
+          <div class="q-code">Confirmation</div>
+          <div class="q-text">Privacy &amp; accuracy acknowledgment <span class="req">*</span></div>
+          <label class="check-opt" id="privacyOpt" onclick="toggleCheck('privacyCheck','privacyOpt')">
+            <input type="checkbox" id="privacyCheck" onchange="saveData()">
+            <span class="opt-label">I confirm that the information provided is accurate to the best of my knowledge, and I consent to this data being used to generate a preliminary valuation report in accordance with the Australian Privacy Principles.</span>
+          </label>
+        </div>
+
+        <div class="nav-buttons">
+          <div></div>
+          <button class="btn btn-next" onclick="goToSection(2)">Next: Financials &rarr;</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════ SECTION 2: FINANCIALS ═══════════════════════════════ -->
+  <div class="section-view" id="view-2">
+    <div class="section-card">
+      <div class="section-header">
+        <div class="sec-label">Section 2 of 13</div>
+        <h2>Revenue, Profit &amp; Financial Controls</h2>
+        <p>Financial performance is the primary driver of business value.</p>
+      </div>
+      <div class="section-body">
+        <div class="section-intro">
+          <strong>Why we ask:</strong> Buyers and valuers rely on clean, consistent financials. These figures form the foundation of your valuation multiple calculation and quality-of-earnings assessment.
+        </div>
+
+        <div class="q-card">
+          <div class="q-code">B1</div>
+          <div class="q-text">Total revenue for the most recent completed financial year <span class="req">*</span></div>
+          <div class="q-hint">Use your most recent full-year P&amp;L. Exclude GST.</div>
+          <div class="input-prefix">
+            <span class="prefix">$</span>
+            <input type="number" id="B1" placeholder="e.g. 4500000" min="0" oninput="updateCalc()">
+          </div>
+        </div>
+
+        <div class="q-card">
+          <div class="q-code">B2</div>
+          <div class="q-text">EBITDA for the same period (before owner add-backs) <span class="req">*</span></div>
+          <div class="q-hint">Earnings Before Interest, Tax, Depreciation &amp; Amortisation. If negative, enter 0.</div>
+          <div class="input-prefix">
+            <span class="prefix">$</span>
+            <input type="number" id="B2" placeholder="e.g. 900000" min="0" oninput="updateCalc()">
+          </div>
+        </div>
+
+        <div class="q-card">
+          <div class="q-code">B3</div>
+          <div class="q-text">Net profit margin after tax</div>
+          <div class="q-hint">Select the range that best describes your business.</div>
+          <div class="radio-group" id="B3-group">
+            <label class="radio-opt" onclick="selectRadio('B3','below5',this)"><input type="radio" name="B3" value="below5"><span class="opt-label">Below 5%</span></label>
+            <label class="radio-opt" onclick="selectRadio('B3','5to10',this)"><input type="radio" name="B3" value="5to10"><span class="opt-label">5% – 10%</span></label>
+            <label class="radio-opt" onclick="selectRadio('B3','11to15',this)"><input type="radio" name="B3" value="11to15"><span class="opt-label">11% – 15%</span></label>
+            <label class="radio-opt" onclick="selectRadio('B3','16to25',this)"><input type="radio" name="B3" value="16to25"><span class="opt-label">16% – 25%</span></label>
+            <label class="radio-opt" onclick="selectRadio('B3','above25',this)"><input type="radio" name="B3" value="above25"><span class="opt-label">Above 25%</span></label>
+          </div>
+        </div>
+
+        <div class="q-card">
+          <div class="q-code">B4</div>
+          <div class="q-text">EBITDA margin (EBITDA ÷ Revenue)</div>
+          <div class="radio-group" id="B4-group">
+            <label class="radio-opt" onclick="selectRadio('B4','below10',this)"><input type="radio" name="B4" value="below10"><span class="opt-label">Below 10%</span></label>
+            <label class="radio-opt" onclick="selectRadio('B4','10to15',this)"><input type="radio" name="B4" value="10to15"><span class="opt-label">10% – 15%</span></label>
+            <label class="radio-opt" onclick="selectRadio('B4','16to20',this)"><input type="radio" name="B4" value="16to20"><span class="opt-label">16% – 20%</span></label>
+            <label class="radio-opt" onclick="selectRadio('B4','21to30',this)"><input type="radio" name="B4" value="21to30"><span class="opt-label">21% – 30%</span></label>
+            <label class="radio-opt" onclick="selectRadio('B4','above30',this)"><input type="radio" name="B4" value="above30"><span class="opt-label">Above 30%</span></label>
+          </div>
+        </div>
+
+        <div class="q-card">
+          <div class="q-code">B_GPM</div>
+          <div class="q-text">Gross profit margin</div>
+          <div class="radio-group" id="BGPM-group">
+            <label class="radio-opt" onclick="selectRadio('BGPM','under40',this)"><input type="radio" name="BGPM" value="under40"><span class="opt-label">Under 40%</span></label>
+            <label class="radio-opt" onclick="selectRadio('BGPM','40to60',this)"><input type="radio" name="BGPM" value="40to60"><span class="opt-label">40% – 60%</span></label>
+            <label class="radio-opt" onclick="selectRadio('BGPM','61to80',this)"><input type="radio" name="BGPM" value="61to80"><span class="opt-label">61% – 80%</span></label>
+            <label class="radio-opt" onclick="selectRadio('BGPM','over80',this)"><input type="radio" name="BGPM" value="over80"><span class="opt-label">Over 80%</span></label>
+            <label class="radio-opt" onclick="selectRadio('BGPM','unsure',this)"><input type="radio" name="BGPM" value="unsure"><span class="opt-label">Unsure</span></label>
+          </div>
+        </div>
+
+        <div class="q-card">
+          <div class="q-code">B5</div>
+          <div class="q-text">Cash flow predictability</div>
+          <div class="radio-group" id="B5-group">
+            <label class="radio-opt" onclick="selectRadio('B5','unpred',this)"><input type="radio" name="B5" value="unpred"><span class="opt-label">Very unpredictable — highly variable, lumpy revenue</span></label>
+            <label class="radio-opt" onclick="selectRadio('B5','some',this)"><input type="radio" name="B5" value="some"><span class="opt-label">Somewhat predictable — moderate recurring component</span></label>
+            <label class="radio-opt" onclick="selectRadio('B5','high',this)"><input type="radio" name="B5" value="high"><span class="opt-label">Highly predictable — strong contracted or recurring revenue</span></label>
+          </div>
+        </div>
+
+        <div class="q-card">
+          <div class="q-code">B6</div>
+          <div class="q-text">How frequently are formal financial statements prepared?</div>
+          <div class="radio-group" id="B6-group">
+            <label class="radio-opt" onclick="selectRadio('B6','annual',this)"><input type="radio" name="B6" value="annual"><span class="opt-label">Annually only</span></label>
+            <label class="radio-opt" onclick="selectRadio('B6','qtrly',this)"><input type="radio" name="B6" value="qtrly"><span class="opt-label">Quarterly</span></label>
+            <label class="radio-opt" onclick="selectRadio('B6','monthly',this)"><input type="radio" name="B6" value="monthly"><span class="opt-label">Monthly</span></label>
+            <label class="radio-opt" onclick="selectRadio('B6','realtime',this)"><input type="radio" name="B6" value="realtime"><span class="opt-label">Weekly / Real-time dashboard</span></label>
+          </div>
+        </div>
+
+        <div class="q-card">
+          <div class="q-code">B7</div>
+          <div class="q-text">Average debtor days outstanding</div>
+          <div class="radio-group" id="B7-group">
+            <label class="radio-opt" onclick="selectRadio('B7','u15',this)"><input type="radio" name="B7" value="u15"><span class="opt-label">Under 15 days</span></label>
+            <label class="radio-opt" onclick="selectRadio('B7','15to30',this)"><input type="radio" name="B7" value="15to30"><span class="opt-label">15 – 30 days</span></label>
+            <label class="radio-opt" onclick="selectRadio('B7','31to45',this)"><input type="radio" name="B7" value="31to45"><span class="opt-label">31 – 45 days</span></label>
+            <label class="radio-opt" onclick="selectRadio('B7','46to60',this)"><input type="radio" name="B7" value="46to60"><span class="opt-label">46 – 60 days</span></label>
+            <label class="radio-opt" onclick="selectRadio('B7','over60',this)"><input type="radio" name="B7" value="over60"><span class="opt-label">Over 60 days</span></label>
+          </div>
+        </div>
+
+        <div class="q-card">
+          <div class="q-code">B8</div>
+          <div class="q-text">Does the business have a formal annual budget?</div>
+          <div class="radio-group" id="B8-group">
+            <label class="radio-opt" onclick="selectRadio('B8','none',this)"><input type="radio" name="B8" value="none"><span class="opt-label">No formal budget</span></label>
+            <label class="radio-opt" onclick="selectRadio('B8','informal',this)"><input type="radio" name="B8" value="informal"><span class="opt-label">Informal / owner's head</span></label>
+            <label class="radio-opt" onclick="selectRadio('B8','qtrly',this)"><input type="radio" name="B8" value="qtrly"><span class="opt-label">Yes — quarterly board review</span></label>
+            <label class="radio-opt" onclick="selectRadio('B8','monthly',this)"><input type="radio" name="B8" value="monthly"><span class="opt-label">Yes — monthly board-approved review</span></label>
+          </div>
+        </div>
+
+        <div class="q-card">
+          <div class="q-code">B9</div>
+          <div class="q-text">How are actuals tracked against budget?</div>
+          <div class="radio-group" id="B9-group">
+            <label class="radio-opt" onclick="selectRadio('B9','none',this)"><input type="radio" name="B9" value="none"><span class="opt-label">No tracking</span></label>
+            <label class="radio-opt" onclick="selectRadio('B9','occ',this)"><input type="radio" name="B9" value="occ"><span class="opt-label">Occasionally / ad hoc</span></label>
+            <label class="radio-opt" onclick="selectRadio('B9','qtrly',this)"><input type="radio" name="B9" value="qtrly"><span class="opt-label">Quarterly variance reporting</span></label>
+            <label class="radio-opt" onclick="selectRadio('B9','monthly',this)"><input type="radio" name="B9" value="monthly"><span class="opt-label">Monthly variance &amp; commentary</span></label>
+          </div>
+        </div>
+
+        <div class="q-card">
+          <div class="q-code">B10</div>
+          <div class="q-text">Rolling financial forecast capability</div>
+          <div class="radio-group" id="B10-group">
+            <label class="radio-opt" onclick="selectRadio('B10','none',this)"><input type="radio" name="B10" value="none"><span class="opt-label">No forecast capability</span></label>
+            <label class="radio-opt" onclick="selectRadio('B10','pl',this)"><input type="radio" name="B10" value="pl"><span class="opt-label">P&amp;L forecast only</span></label>
+            <label class="radio-opt" onclick="selectRadio('B10','pl13',this)"><input type="radio" name="B10" value="pl13"><span class="opt-label">P&amp;L plus 13-week cash flow forecast</span></label>
+            <label class="radio-opt" onclick="selectRadio('B10','full',this)"><input type="radio" name="B10" value="full"><span class="opt-label">Full 3-statement financial model (P&amp;L, Balance Sheet, Cash Flow)</span></label>
+          </div>
+        </div>
+
+        <div class="q-card">
+          <div class="q-code">B11</div>
+          <div class="q-text">How would you characterise annual capital expenditure?</div>
+          <div class="radio-group" id="B11-group">
+            <label class="radio-opt" onclick="selectRadio('B11','high',this)"><input type="radio" name="B11" value="high"><span class="opt-label">High — significant ongoing capex required to maintain operations</span></label>
+            <label class="radio-opt" onclick="selectRadio('B11','mod',this)"><input type="radio" name="B11" value="mod"><span class="opt-label">Moderate — regular investment in equipment or technology</span></label>
+            <label class="radio-opt" onclick="selectRadio('B11','low',this)"><input type="radio" name="B11" value="low"><span class="opt-label">Low — limited capital requirements</span></label>
+            <label class="radio-opt" onclick="selectRadio('B11','min',this)"><input type="radio" name="B11" value="min"><span class="opt-label">Minimal — largely asset-light business model</span></label>
+          </div>
+        </div>
+
+        <div class="q-card">
+          <div class="q-code">B12</div>
+          <div class="q-text">Current funding sources (select all that apply)</div>
+          <div class="check-group" id="B12-group">
+            <label class="check-opt" onclick="toggleCheck('B12_internal',this)"><input type="checkbox" id="B12_internal"><span class="opt-label">Internal cash / retained earnings</span></label>
+            <label class="check-opt" onclick="toggleCheck('B12_overdraft',this)"><input type="checkbox" id="B12_overdraft"><span class="opt-label">Bank overdraft</span></label>
+            <label class="check-opt" onclick="toggleCheck('B12_term',this)"><input type="checkbox" id="B12_term"><span class="opt-label">Term loan</span></label>
+            <label class="check-opt" onclick="toggleCheck('B12_equip',this)"><input type="checkbox" id="B12_equip"><span class="opt-label">Equipment / asset finance</span></label>
+            <label class="check-opt" onclick="toggleCheck('B12_invoice',this)"><input type="checkbox" id="B12_invoice"><span class="opt-label">Invoice finance / debtor finance</span></label>
+            <label class="check-opt" onclick="toggleCheck('B12_sh',this)"><input type="checkbox" id="B12_sh"><span class="opt-label">Shareholder loans</span></label>
+            <label class="check-opt" onclick="toggleCheck('B12_equity',this)"><input type="checkbox" id="B12_equity"><span class="opt-label">External equity / venture / private equity</span></label>
+          </div>
+        </div>
+
+        <div class="nav-buttons">
+          <button class="btn btn-prev" onclick="goToSection(1)">&larr; Previous</button>
+          <button class="btn btn-next" onclick="goToSection(3)">Next: Deep Dive &rarr;</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════ SECTION 3: DEEP DIVE ═══════════════════════════════ -->
+  <div class="section-view" id="view-3">
+    <div class="section-card">
+      <div class="section-header">
+        <div class="sec-label">Section 3 of 13</div>
+        <h2>Valuation Inputs &amp; Quality of Earnings</h2>
+        <p>These inputs directly drive the live valuation calculator.</p>
+      </div>
+      <div class="section-body">
+        <div class="section-intro">
+          <strong>Why we ask:</strong> Normalised EBITDA — adjusted for owner remuneration and one-off items — is the most common valuation metric in SME transactions. The industry multiple determines the valuation range.
+        </div>
+
+        <!-- LIVE CALCULATOR -->
+        <div class="valuation-box">
+          <div class="vb-label">Live Valuation Calculator</div>
+          <div class="vb-formula">
+            <div class="vb-item">
+              <div class="vb-val" id="calc-ebitda">$—</div>
+              <div class="vb-lbl">Normalised EBITDA</div>
+            </div>
+            <div class="vb-op">×</div>
+            <div class="vb-item">
+              <div class="vb-val" id="calc-multiple">—×</div>
+              <div class="vb-lbl">Multiple</div>
+            </div>
+            <div class="vb-op">=</div>
+            <div class="vb-item">
+              <div class="vb-val" id="calc-range">$—</div>
+              <div class="vb-lbl">Indicative Range</div>
+            </div>
+          </div>
+          <div class="vb-result">
+            <span class="range-label">Valuation Range</span>
+            <span class="range-val" id="calc-full-range">Complete fields above to calculate</span>
+          </div>
+          <div class="indicator-pills" id="calc-indicators"></div>
+        </div>
+
+        <div class="q-card">
+          <div class="q-code">D1</div>
+          <div class="q-text">Industry / sector classification for valuation purposes <span class="req">*</span></div>
+          <div class="q-hint">Each sector carries a typical EBITDA multiple range based on market transaction data.</div>
+          <select id="D1" onchange="updateCalc()">
+            <option value="">— Select sector —</option>
+            <option value="2to3">Trade Services (Plumbing, Electrical, HVAC) — 2× – 3×</option>
+            <option value="2.5to4">Retail / Hospitality — 2.5× – 4×</option>
+            <option value="3to4.5">Logistics / Transport — 3× – 4.5×</option>
+            <option value="3to5">Manufacturing / Industrial — 3× – 5×</option>
+            <option value="3.5to5">Construction / Building Services — 3.5× – 5×</option>
+            <option value="4to6">Healthcare / Allied Health — 4× – 6×</option>
+            <option value="4to6b">Business Services / Consulting — 4× – 6×</option>
+            <option value="5to7">Technology / SaaS / Managed Services — 5× – 7×</option>
+            <option value="6to8">High-growth / Recurring Revenue — 6× – 8×+</option>
+          </select>
+        </div>
+
+        <div class="q-card">
+          <div class="q-code">D2</div>
+          <div class="q-text">Owner remuneration add-back</div>
+          <div class="q-hint">If the owner is paid more or less than a replacement manager, adjust EBITDA accordingly.</div>
+          <div class="input-row">
+            <div class="field-wrap">
+              <label class="field-label">Total owner remuneration ($)</label>
+              <div class="input-prefix"><span class="prefix">$</span><input type="number" id="D2a" placeholder="e.g. 250000" min="0" oninput="updateCalc()"></div>
+            </div>
+            <div class="field-wrap">
+              <label class="field-label">Replacement manager cost ($)</label>
+              <div class="input-prefix"><span class="prefix">$</span><input type="number" id="D2b" placeholder="e.g. 180000" min="0" oninput="updateCalc()"></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="q-card">
+          <div class="q-code">D3</div>
+          <div class="q-text">One-off &amp; non-recurring expenses to add back</div>
+          <div class="q-hint">Legal disputes, one-time consultancy, restructuring costs, etc. that won't recur.</div>
+          <div class="input-prefix">
+            <span class="prefix">$</span>
+            <input type="number" id="D3" placeholder="e.g. 50000" min="0" oninput="updateCalc()">
+          </div>
+        </div>
+
+        <div class="q-card">
+          <div class="q-code">D4</div>
+          <div class="q-text">Working capital position</div>
+          <div class="radio-group" id="D4-group">
+            <label class="radio-opt" onclick="selectRadio('D4','positive',this)"><input type="radio" name="D4" value="positive"><span class="opt-label">Positive — cash collected before expenses paid</span></label>
+            <label class="radio-opt" onclick="selectRadio('D4','neutral',this)"><input type="radio" name="D4" value="neutral"><span class="opt-label">Neutral — roughly balanced</span></label>
+            <label class="radio-opt" onclick="selectRadio('D4','seasonal',this)"><input type="radio" name="D4" value="seasonal"><span class="opt-label">Seasonal — significant peaks and troughs</span></label>
+            <label class="radio-opt" onclick="selectRadio('D4','negative',this)"><input type="radio" name="D4" value="negative"><span class="opt-label">Negative — cash tied up in debtors / stock</span></label>
+          </div>
+        </div>
+
+        <div class="q-card">
+          <div class="q-code">D5</div>
+          <div class="q-text">Revenue trend over the past 3 years</div>
+          <div class="radio-group" id="D5-group">
+            <label class="radio-opt" onclick="selectRadio('D5','strong',this)"><input type="radio" name="D5" value="strong"><span class="opt-label">Strong growth — 15%+ per annum</span></label>
+            <label class="radio-opt" onclick="selectRadio('D5','moderate',this)"><input type="radio" name="D5" value="moderate"><span class="opt-label">Moderate growth — 5% – 15% per annum</span></label>
+            <label class="radio-opt" onclick="selectRadio('D5','stable',this)"><input type="radio" name="D5" value="stable"><span class="opt-label">Stable — broadly flat</span></label>
+            <label class="radio-opt" onclick="selectRadio('D5','mixed',this)"><input type="radio" name="D5" value="mixed"><span class="opt-label">Mixed — up and down</span></label>
+            <label class="radio-opt" onclick="selectRadio('D5','declining',this)"><input type="radio" name="D5" value="declining"><span class="opt-label">Declining — revenue contracting</span></label>
+          </div>
+        </div>
+
+        <div class="q-card">
+          <div class="q-code">D6</div>
+          <div class="q-text">Quality of earnings — financial statement standard</div>
+          <div class="radio-group" id="D6-group">
+            <label class="radio-opt" onclick="selectRadio('D6','tax',this)"><input type="radio" name="D6" value="tax"><span class="opt-label">Tax returns only — no management accounts</span></label>
+            <label class="radio-opt" onclick="selectRadio('D6','compiled',this)"><input type="radio" name="D6" value="compiled"><span class="opt-label">Compiled by accountant — no independent review</span></label>
+            <label class="radio-opt" onclick="selectRadio('D6','reviewed',this)"><input type="radio" name="D6" value="reviewed"><span class="opt-label">Independently reviewed financial statements</span></label>
+            <label class="radio-opt" onclick="selectRadio('D6','audited',this)"><input type="radio" name="D6" value="audited"><span class="opt-label">Audited financial statements</span></label>
+          </div>
+        </div>
+
+        <div class="nav-buttons">
+          <button class="btn btn-prev" onclick="goToSection(2)">&larr; Previous</button>
+          <button class="btn btn-next" onclick="goToSection(4)">Next: Growth &rarr;</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════ SECTION 4: GROWTH ═══════════════════════════════ -->
+  <div class="section-view" id="view-4">
+    <div class="section-card">
+      <div class="section-header">
+        <div class="sec-label">Section 4 of 13</div>
+        <h2>Growth Drivers &amp; Pipeline</h2>
+        <p>Buyers pay a premium for demonstrable growth potential.</p>
+      </div>
+      <div class="section-body">
+        <div class="section-intro">
+          <strong>Why we ask:</strong> A business with a credible, documented growth strategy commands a higher multiple. This section identifies whether your growth is opportunistic or systematic.
+        </div>
+
+        <div class="q-card">
+          <div class="q-code">G1</div>
+          <div class="q-text">Does the business have a documented growth strategy?</div>
+          <div class="radio-group" id="G1-group">
+            <label class="radio-opt" onclick="selectRadio('G1','none',this)"><input type="radio" name="G1" value="none"><span class="opt-label">No formal strategy — growth is opportunistic</span></label>
+            <label class="radio-opt" onclick="selectRadio('G1','informal',this)"><input type="radio" name="G1" value="informal"><span class="opt-label">Informal plan — in owner's head</span></label>
+            <label class="radio-opt" onclick="selectRadio('G1','written',this)"><input type="radio" name="G1" value="written"><span class="opt-label">Written strategic plan — reviewed annually</span></label>
+            <label class="radio-opt" onclick="selectRadio('G1','board',this)"><input type="radio" name="G1" value="board"><span class="opt-label">Board-approved strategic plan with KPIs and milestones</span></label>
+          </div>
+        </div>
+
+        <div class="q-card">
+          <div class="q-code">G2</div>
+          <div class="q-text">Sales pipeline visibility</div>
+          <div class="radio-group" id="G2-group">
+            <label class="radio-opt" onclick="selectRadio('G2','none',this)"><input type="radio" name="G2" value="none"><span class="opt-label">No formal pipeline — reactive to inbound enquiries</span></label>
+            <label class="radio-opt" onclick="selectRadio('G2','basic',this)"><input type="radio" name="G2" value="basic"><span class="opt-label">Basic tracking — spreadsheet or similar</span></label>
+            <label class="radio-opt" onclick="selectRadio('G2','crm',this)"><input type="radio" name="G2" value="crm"><span class="opt-label">CRM system with pipeline stages and forecasting</span></label>
+            <label class="radio-opt" onclick="selectRadio('G2','advanced',this)"><input type="radio" name="G2" value="advanced"><span class="opt-label">Advanced CRM with win-rate data and revenue forecasting</span></label>
+          </div>
+        </div>
+
+        <div class="q-card">
+          <div class="q-code">G3</div>
+          <div class="q-text">Proportion of revenue from new vs. existing customers</div>
+          <div class="radio-group" id="G3-group">
+            <label class="radio-opt" onclick="selectRadio('G3','mostly_new',this)"><input type="radio" name="G3" value="mostly_new"><span class="opt-label">Mostly new customers (&gt;70% new each year)</span></label>
+            <label class="radio-opt" onclick="selectRadio('G3','balanced',this)"><input type="radio" name="G3" value="balanced"><span class="opt-label">Balanced mix of new and repeat business</span></label>
+            <label class="radio-opt" onclick="selectRadio('G3','mostly_repeat',this)"><input type="radio" name="G3" value="mostly_repeat"><span class="opt-label">Mostly repeat / existing customers (&gt;70% recurring)</span></label>
+          </div>
+        </div>
+
+        <div class="q-card">
+          <div class="q-code">G4</div>
+          <div class="q-text">New market / product expansion opportunities</div>
+          <div class="radio-group" id="G4-group">
+            <label class="radio-opt" onclick="selectRadio('G4','none',this)"><input type="radio" name="G4" value="none"><span class="opt-label">No clear adjacent opportunities identified</span></label>
+            <label class="radio-opt" onclick="selectRadio('G4','some',this)"><input type="radio" name="G4" value="some"><span class="opt-label">Some opportunities identified but not yet pursued</span></label>
+            <label class="radio-opt" onclick="selectRadio('G4','active',this)"><input type="radio" name="G4" value="active"><span class="opt-label">Actively pursuing new markets or product lines</span></label>
+            <label class="radio-opt" onclick="selectRadio('G4','proven',this)"><input type="radio" name="G4" value="proven"><span class="opt-label">Proven expansion with documented results</span></label>
+          </div>
+        </div>
+
+        <div class="q-card">
+          <div class="q-code">G5</div>
+          <div class="q-text">Revenue concentration risk — largest single customer share</div>
+          <div class="radio-group" id="G5-group">
+            <label class="radio-opt" onclick="selectRadio('G5','over40',this)"><input type="radio" name="G5" value="over40"><span class="opt-label">Over 40% — high concentration risk</span></label>
+            <label class="radio-opt" onclick="selectRadio('G5','25to40',this)"><input type="radio" name="G5" value="25to40"><span class="opt-label">25% – 40% — moderate concentration</span></label>
+            <label class="radio-opt" onclick="selectRadio('G5','10to25',this)"><input type="radio" name="G5" value="10to25"><span class="opt-label">10% – 25% — manageable concentration</span></label>
+            <label class="radio-opt" onclick="selectRadio('G5','under10',this)"><input type="radio" name="G5" value="under10"><span class="opt-label">Under 10% — well diversified</span></label>
+          </div>
+        </div>
+
+        <div class="nav-buttons">
+          <button class="btn btn-prev" onclick="goToSection(3)">&larr; Previous</button>
+          <button class="btn btn-next" onclick="goToSection(5)">Next: Customers &rarr;</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════ SECTION 5: CUSTOMERS ═══════════════════════════════ -->
+  <div class="section-view" id="view-5">
+    <div class="section-card">
+      <div class="section-header">
+        <div class="sec-label">Section 5 of 13</div>
+        <h2>Customer Quality &amp; Relationships</h2>
+        <p>The stickiness and quality of your customer base is a key value driver.</p>
+      </div>
+      <div class="section-body">
+        <div class="section-intro">
+          <strong>Why we ask:</strong> Contracted, recurring, and loyal customers reduce risk for a buyer and justify a higher multiple. Customer concentration and contract terms are scrutinised in due diligence.
+        </div>
+
+        <div class="q-card">
+          <div class="q-code">C1</div>
+          <div class="q-text">Average customer contract length / tenure</div>
+          <div class="radio-group" id="C1-group">
+            <label class="radio-opt" onclick="selectRadio('C1','transact',this)"><input type="radio" name="C1" value="transact"><span class="opt-label">Transactional — no ongoing relationship</span></label>
+            <label class="radio-opt" onclick="selectRadio('C1','u1yr',this)"><input type="radio" name="C1" value="u1yr"><span class="opt-label">Under 1 year typical engagement</span></label>
+            <label class="radio-opt" onclick="selectRadio('C1','1to3',this)"><input type="radio" name="C1" value="1to3"><span class="opt-label">1 – 3 year relationships</span></label>
+            <label class="radio-opt" onclick="selectRadio('C1','over3',this)"><input type="radio" name="C1" value="over3"><span class="opt-label">Over 3 years — long-standing relationships</span></label>
+          </div>
+        </div>
+
+        <div class="q-card">
+          <div class="q-code">C2</div>
+          <div class="q-text">Proportion of revenue under formal contract</div>
+          <div class="radio-group" id="C2-group">
+            <label class="radio-opt" onclick="selectRadio('C2','none',this)"><input type="radio" name="C2" value="none"><span class="opt-label">No formal contracts — all handshake / informal</span></label>
+            <label class="radio-opt" onclick="selectRadio('C2','some',this)"><input type="radio" name="C2" value="some"><span class="opt-label">Some contracts — less than 50% of revenue</span></label>
+            <label class="radio-opt" onclick="selectRadio('C2','majority',this)"><input type="radio" name="C2" value="majority"><span class="opt-label">Majority under contract — 50% – 80%</span></label>
+            <label class="radio-opt" onclick="selectRadio('C2','high',this)"><input type="radio" name="C2" value="high"><span class="opt-label">Highly contracted — over 80% of revenue</span></label>
+          </div>
+        </div>
+
+        <div class="q-card">
+          <div class="q-code">C3</div>
+          <div class="q-text">Customer churn rate (annual)</div>
+          <div class="radio-group" id="C3-group">
+            <label class="radio-opt" onclick="selectRadio('C3','high',this)"><input type="radio" name="C3" value="high"><span class="opt-label">High — over 25% per year</span></label>
+            <label class="radio-opt" onclick="selectRadio('C3','mod',this)"><input type="radio" name="C3" value="mod"><span class="opt-label">Moderate — 10% – 25% per year</span></label>
+            <label class="radio-opt" onclick="selectRadio('C3','low',this)"><input type="radio" name="C3" value="low"><span class="opt-label">Low — under 10% per year</span></label>
+            <label class="radio-opt" onclick="selectRadio('C3','vlow',this)"><input type="radio" name="C3" value="vlow"><span class="opt-label">Very low — under 5% or unknown</span></label>
+          </div>
+        </div>
+
+        <div class="q-card">
+          <div class="q-code">C4</div>
+          <div class="q-text">Customer satisfaction measurement</div>
+          <div class="radio-group" id="C4-group">
+            <label class="radio-opt" onclick="selectRadio('C4','none',this)"><input type="radio" name="C4" value="none"><span class="opt-label">Not formally measured</span></label>
+            <label class="radio-opt" onclick="selectRadio('C4','informal',this)"><input type="radio" name="C4" value="informal"><span class="opt-label">Informal feedback — no structured process</span></label>
+            <label class="radio-opt" onclick="selectRadio('C4','periodic',this)"><input type="radio" name="C4" value="periodic"><span class="opt-label">Periodic surveys or reviews</span></label>
+            <label class="radio-opt" onclick="selectRadio('C4','nps',this)"><input type="radio" name="C4" value="nps"><span class="opt-label">NPS or formal CSAT with benchmarking</span></label>
+          </div>
+        </div>
+
+        <div class="q-card">
+          <div class="q-code">C5</div>
+          <div class="q-text">Do contracts/relationships transfer with a business sale?</div>
+          <div class="radio-group" id="C5-group">
+            <label class="radio-opt" onclick="selectRadio('C5','no',this)"><input type="radio" name="C5" value="no"><span class="opt-label">No — highly owner-dependent relationships</span></label>
+            <label class="radio-opt" onclick="selectRadio('C5','some',this)"><input type="radio" name="C5" value="some"><span class="opt-label">Partially — some customer relationships are transferable</span></label>
+            <label class="radio-opt" onclick="selectRadio('C5','mostly',this)"><input type="radio" name="C5" value="mostly"><span class="opt-label">Mostly — relationships tied to the business, not the owner</span></label>
+            <label class="radio-opt" onclick="selectRadio('C5','yes',this)"><input type="radio" name="C5" value="yes"><span class="opt-label">Yes — fully transferable with formal change of ownership clauses</span></label>
+          </div>
+        </div>
+
+        <div class="nav-buttons">
+          <button class="btn btn-prev" onclick="goToSection(4)">&larr; Previous</button>
+          <button class="btn btn-next" onclick="goToSection(6)">Next: Operations &rarr;</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════ SECTION 6: OPERATIONS ═══════════════════════════════ -->
+  <div class="section-view" id="view-6">
+    <div class="section-card">
+      <div class="section-header">
+        <div class="sec-label">Section 6 of 13</div>
+        <h2>Operations &amp; Systems</h2>
+        <p>Scalable, documented operations reduce risk and increase value.</p>
+      </div>
+      <div class="section-body">
+        <div class="section-intro">
+          <strong>Why we ask:</strong> Buyers want businesses that run independently of the owner. Documented processes, strong systems, and operational resilience are key diligence items.
+        </div>
+
+        <div class="q-card">
+          <div class="q-code">O1</div>
+          <div class="q-text">Standard operating procedures (SOPs) documentation</div>
+          <div class="radio-group" id="O1-group">
+            <label class="radio-opt" onclick="selectRadio('O1','none',this)"><input type="radio" name="O1" value="none"><span class="opt-label">No SOPs — processes exist in people's heads</span></label>
+            <label class="radio-opt" onclick="selectRadio('O1','partial',this)"><input type="radio" name="O1" value="partial"><span class="opt-label">Partial — key processes documented but incomplete</span></label>
+            <label class="radio-opt" onclick="selectRadio('O1','most',this)"><input type="radio" name="O1" value="most"><span class="opt-label">Most critical processes are documented</span></label>
+            <label class="radio-opt" onclick="selectRadio('O1','full',this)"><input type="radio" name="O1" value="full"><span class="opt-label">Fully documented — operations manual or similar</span></label>
+          </div>
+        </div>
+
+        <div class="q-card">
+          <div class="q-code">O2</div>
+          <div class="q-text">Technology and systems maturity</div>
+          <div class="radio-group" id="O2-group">
+            <label class="radio-opt" onclick="selectRadio('O2','basic',this)"><input type="radio" name="O2" value="basic"><span class="opt-label">Basic — spreadsheets and email</span></label>
+            <label class="radio-opt" onclick="selectRadio('O2','some',this)"><input type="radio" name="O2" value="some"><span class="opt-label">Some systems — accounting software and basic tools</span></label>
+            <label class="radio-opt" onclick="selectRadio('O2','integrated',this)"><input type="radio" name="O2" value="integrated"><span class="opt-label">Integrated — ERP, CRM, and core platforms connected</span></label>
+            <label class="radio-opt" onclick="selectRadio('O2','advanced',this)"><input type="radio" name="O2" value="advanced"><span class="opt-label">Advanced — automation, real-time reporting, scalable infrastructure</span></label>
+          </div>
+        </div>
+
+        <div class="q-card">
+          <div class="q-code">O3</div>
+          <div class="q-text">Supply chain and vendor concentration</div>
+          <div class="radio-group" id="O3-group">
+            <label class="radio-opt" onclick="selectRadio('O3','single',this)"><input type="radio" name="O3" value="single"><span class="opt-label">Single-source dependent — one key supplier</span></label>
+            <label class="radio-opt" onclick="selectRadio('O3','few',this)"><input type="radio" name="O3" value="few"><span class="opt-label">A few key suppliers — limited alternatives</span></label>
+            <label class="radio-opt" onclick="selectRadio('O3','diversified',this)"><input type="radio" name="O3" value="diversified"><span class="opt-label">Diversified supply base with alternatives</span></label>
+            <label class="radio-opt" onclick="selectRadio('O3','na',this)"><input type="radio" name="O3" value="na"><span class="opt-label">Not applicable — service-based business</span></label>
+          </div>
+        </div>
+
+        <div class="q-card">
+          <div class="q-code">O4</div>
+          <div class="q-text">Business continuity / disaster recovery planning</div>
+          <div class="radio-group" id="O4-group">
+            <label class="radio-opt" onclick="selectRadio('O4','none',this)"><input type="radio" name="O4" value="none"><span class="opt-label">No formal plan</span></label>
+            <label class="radio-opt" onclick="selectRadio('O4','basic',this)"><input type="radio" name="O4" value="basic"><span class="opt-label">Basic — data backups and informal arrangements</span></label>
+            <label class="radio-opt" onclick="selectRadio('O4','documented',this)"><input type="radio" name="O4" value="documented"><span class="opt-label">Documented BCP — reviewed periodically</span></label>
+            <label class="radio-opt" onclick="selectRadio('O4','tested',this)"><input type="radio" name="O4" value="tested"><span class="opt-label">Tested BCP — regularly rehearsed and updated</span></label>
+          </div>
+        </div>
+
+        <div class="nav-buttons">
+          <button class="btn btn-prev" onclick="goToSection(5)">&larr; Previous</button>
+          <button class="btn btn-next" onclick="goToSection(7)">Next: Team &rarr;</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════ SECTION 7: TEAM ═══════════════════════════════ -->
+  <div class="section-view" id="view-7">
+    <div class="section-card">
+      <div class="section-header">
+        <div class="sec-label">Section 7 of 13</div>
+        <h2>Team &amp; Management Depth</h2>
+        <p>A business that can operate without its owner is worth significantly more.</p>
+      </div>
+      <div class="section-body">
+        <div class="section-intro">
+          <strong>Why we ask:</strong> Owner-dependence is the single greatest value destroyer in SME transactions. A strong second tier of management is critical to a successful sale and transition.
+        </div>
+
+        <div class="q-card">
+          <div class="q-code">T1</div>
+          <div class="q-text">Owner dependency — could the business operate without you for 3+ months?</div>
+          <div class="radio-group" id="T1-group">
+            <label class="radio-opt" onclick="selectRadio('T1','no',this)"><input type="radio" name="T1" value="no"><span class="opt-label">No — I am central to all key functions</span></label>
+            <label class="radio-opt" onclick="selectRadio('T1','short',this)"><input type="radio" name="T1" value="short"><span class="opt-label">Short periods only — 1–4 weeks maximum</span></label>
+            <label class="radio-opt" onclick="selectRadio('T1','mostly',this)"><input type="radio" name="T1" value="mostly"><span class="opt-label">Mostly yes — key staff could manage most functions</span></label>
+            <label class="radio-opt" onclick="selectRadio('T1','yes',this)"><input type="radio" name="T1" value="yes"><span class="opt-label">Yes — management team runs the business day-to-day</span></label>
+          </div>
+        </div>
+
+        <div class="q-card">
+          <div class="q-code">T2</div>
+          <div class="q-text">Second-tier management strength</div>
+          <div class="radio-group" id="T2-group">
+            <label class="radio-opt" onclick="selectRadio('T2','none',this)"><input type="radio" name="T2" value="none"><span class="opt-label">No second tier — owner manages directly</span></label>
+            <label class="radio-opt" onclick="selectRadio('T2','some',this)"><input type="radio" name="T2" value="some"><span class="opt-label">Some senior staff but limited management capability</span></label>
+            <label class="radio-opt" onclick="selectRadio('T2','capable',this)"><input type="radio" name="T2" value="capable"><span class="opt-label">Capable managers in key roles</span></label>
+            <label class="radio-opt" onclick="selectRadio('T2','strong',this)"><input type="radio" name="T2" value="strong"><span class="opt-label">Strong management team — experienced and incentivised</span></label>
+          </div>
+        </div>
+
+        <div class="q-card">
+          <div class="q-code">T3</div>
+          <div class="q-text">Key person risk — staff retention and succession</div>
+          <div class="radio-group" id="T3-group">
+            <label class="radio-opt" onclick="selectRadio('T3','high',this)"><input type="radio" name="T3" value="high"><span class="opt-label">High — several critical staff with no succession plan</span></label>
+            <label class="radio-opt" onclick="selectRadio('T3','some',this)"><input type="radio" name="T3" value="some"><span class="opt-label">Some risk — key roles have limited backups</span></label>
+            <label class="radio-opt" onclick="selectRadio('T3','low',this)"><input type="radio" name="T3" value="low"><span class="opt-label">Low — redundancy in most key roles</span></label>
+            <label class="radio-opt" onclick="selectRadio('T3','min',this)"><input type="radio" name="T3" value="min"><span class="opt-label">Minimal — documented succession and cross-training</span></label>
+          </div>
+        </div>
+
+        <div class="q-card">
+          <div class="q-code">T4</div>
+          <div class="q-text">Staff tenure and culture</div>
+          <div class="radio-group" id="T4-group">
+            <label class="radio-opt" onclick="selectRadio('T4','high_turn',this)"><input type="radio" name="T4" value="high_turn"><span class="opt-label">High turnover — difficult to retain good staff</span></label>
+            <label class="radio-opt" onclick="selectRadio('T4','average',this)"><input type="radio" name="T4" value="average"><span class="opt-label">Average — typical for the industry</span></label>
+            <label class="radio-opt" onclick="selectRadio('T4','low_turn',this)"><input type="radio" name="T4" value="low_turn"><span class="opt-label">Low turnover — stable, engaged team</span></label>
+            <label class="radio-opt" onclick="selectRadio('T4','award',this)"><input type="radio" name="T4" value="award"><span class="opt-label">Excellent — award-winning or recognised culture</span></label>
+          </div>
+        </div>
+
+        <div class="nav-buttons">
+          <button class="btn btn-prev" onclick="goToSection(6)">&larr; Previous</button>
+          <button class="btn btn-next" onclick="goToSection(8)">Next: Risk &rarr;</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════ SECTION 8: RISK ═══════════════════════════════ -->
+  <div class="section-view" id="view-8">
+    <div class="section-card">
+      <div class="section-header">
+        <div class="sec-label">Section 8 of 13</div>
+        <h2>Risk Profile &amp; Compliance</h2>
+        <p>Risk-adjusted returns drive valuation — lower risk means higher multiples.</p>
+      </div>
+      <div class="section-body">
+        <div class="section-intro">
+          <strong>Why we ask:</strong> Legal, regulatory, and operational risks are major diligence flags. Buyers discount heavily for undisclosed liabilities, compliance gaps, and industry headwinds.
+        </div>
+
+        <div class="q-card">
+          <div class="q-code">R1</div>
+          <div class="q-text">Regulatory and compliance status</div>
+          <div class="radio-group" id="R1-group">
+            <label class="radio-opt" onclick="selectRadio('R1','issues',this)"><input type="radio" name="R1" value="issues"><span class="opt-label">Known compliance issues or pending investigations</span></label>
+            <label class="radio-opt" onclick="selectRadio('R1','basic',this)"><input type="radio" name="R1" value="basic"><span class="opt-label">Basic compliance — meet minimum requirements</span></label>
+            <label class="radio-opt" onclick="selectRadio('R1','good',this)"><input type="radio" name="R1" value="good"><span class="opt-label">Good standing — up-to-date, no known issues</span></label>
+            <label class="radio-opt" onclick="selectRadio('R1','proactive',this)"><input type="radio" name="R1" value="proactive"><span class="opt-label">Proactive — compliance program with regular reviews</span></label>
+          </div>
+        </div>
+
+        <div class="q-card">
+          <div class="q-code">R2</div>
+          <div class="q-text">Intellectual property and asset protection</div>
+          <div class="radio-group" id="R2-group">
+            <label class="radio-opt" onclick="selectRadio('R2','none',this)"><input type="radio" name="R2" value="none"><span class="opt-label">No formal IP protection</span></label>
+            <label class="radio-opt" onclick="selectRadio('R2','some',this)"><input type="radio" name="R2" value="some"><span class="opt-label">Some protection — trademarks or basic agreements</span></label>
+            <label class="radio-opt" onclick="selectRadio('R2','registered',this)"><input type="radio" name="R2" value="registered"><span class="opt-label">Registered trademarks, patents, or protected processes</span></label>
+            <label class="radio-opt" onclick="selectRadio('R2','strong',this)"><input type="radio" name="R2" value="strong"><span class="opt-label">Strong IP portfolio — significant competitive moat</span></label>
+          </div>
+        </div>
+
+        <div class="q-card">
+          <div class="q-code">R3</div>
+          <div class="q-text">Insurance coverage adequacy</div>
+          <div class="radio-group" id="R3-group">
+            <label class="radio-opt" onclick="selectRadio('R3','minimal',this)"><input type="radio" name="R3" value="minimal"><span class="opt-label">Minimal — basic statutory coverage only</span></label>
+            <label class="radio-opt" onclick="selectRadio('R3','standard',this)"><input type="radio" name="R3" value="standard"><span class="opt-label">Standard — public liability and workers comp</span></label>
+            <label class="radio-opt" onclick="selectRadio('R3','comprehensive',this)"><input type="radio" name="R3" value="comprehensive"><span class="opt-label">Comprehensive — business interruption, PI, D&amp;O coverage</span></label>
+          </div>
+        </div>
+
+        <div class="q-card">
+          <div class="q-code">R4</div>
+          <div class="q-text">Industry / market headwinds</div>
+          <div class="radio-group" id="R4-group">
+            <label class="radio-opt" onclick="selectRadio('R4','strong',this)"><input type="radio" name="R4" value="strong"><span class="opt-label">Strong headwinds — disruptive technology or regulatory threats</span></label>
+            <label class="radio-opt" onclick="selectRadio('R4','some',this)"><input type="radio" name="R4" value="some"><span class="opt-label">Some challenges — cyclical or competitive pressure</span></label>
+            <label class="radio-opt" onclick="selectRadio('R4','stable',this)"><input type="radio" name="R4" value="stable"><span class="opt-label">Stable industry conditions</span></label>
+            <label class="radio-opt" onclick="selectRadio('R4','tailwind',this)"><input type="radio" name="R4" value="tailwind"><span class="opt-label">Strong tailwinds — growing market, favourable trends</span></label>
+          </div>
+        </div>
+
+        <div class="nav-buttons">
+          <button class="btn btn-prev" onclick="goToSection(7)">&larr; Previous</button>
+          <button class="btn btn-next" onclick="goToSection(9)">Next: Innovation &rarr;</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════ SECTION 9: INNOVATION ═══════════════════════════════ -->
+  <div class="section-view" id="view-9">
+    <div class="section-card">
+      <div class="section-header">
+        <div class="sec-label">Section 9 of 13</div>
+        <h2>Innovation &amp; Competitive Advantage</h2>
+        <p>Differentiation protects margins and supports premium valuations.</p>
+      </div>
+      <div class="section-body">
+        <div class="section-intro">
+          <strong>Why we ask:</strong> Businesses with genuine competitive moats, unique offerings, or proprietary technology command premium multiples. Commoditised businesses are more vulnerable to price competition.
+        </div>
+
+        <div class="q-card">
+          <div class="q-code">I1</div>
+          <div class="q-text">Competitive differentiation</div>
+          <div class="radio-group" id="I1-group">
+            <label class="radio-opt" onclick="selectRadio('I1','commodity',this)"><input type="radio" name="I1" value="commodity"><span class="opt-label">Commodity offering — competing primarily on price</span></label>
+            <label class="radio-opt" onclick="selectRadio('I1','some',this)"><input type="radio" name="I1" value="some"><span class="opt-label">Some differentiation — service quality or niche focus</span></label>
+            <label class="radio-opt" onclick="selectRadio('I1','clear',this)"><input type="radio" name="I1" value="clear"><span class="opt-label">Clear differentiation — recognised specialist position</span></label>
+            <label class="radio-opt" onclick="selectRadio('I1','strong',this)"><input type="radio" name="I1" value="strong"><span class="opt-label">Strong moat — proprietary product, technology, or exclusive agreements</span></label>
+          </div>
+        </div>
+
+        <div class="q-card">
+          <div class="q-code">I2</div>
+          <div class="q-text">Investment in R&amp;D or product development</div>
+          <div class="radio-group" id="I2-group">
+            <label class="radio-opt" onclick="selectRadio('I2','none',this)"><input type="radio" name="I2" value="none"><span class="opt-label">None — no formal R&amp;D or product development</span></label>
+            <label class="radio-opt" onclick="selectRadio('I2','ad_hoc',this)"><input type="radio" name="I2" value="ad_hoc"><span class="opt-label">Ad hoc — occasional improvements</span></label>
+            <label class="radio-opt" onclick="selectRadio('I2','structured',this)"><input type="radio" name="I2" value="structured"><span class="opt-label">Structured — dedicated budget and roadmap</span></label>
+            <label class="radio-opt" onclick="selectRadio('I2','leading',this)"><input type="radio" name="I2" value="leading"><span class="opt-label">Industry-leading — significant IP or product pipeline</span></label>
+          </div>
+        </div>
+
+        <div class="q-card">
+          <div class="q-code">I3</div>
+          <div class="q-text">Technology adoption compared to competitors</div>
+          <div class="radio-group" id="I3-group">
+            <label class="radio-opt" onclick="selectRadio('I3','behind',this)"><input type="radio" name="I3" value="behind"><span class="opt-label">Behind — lagging industry peers</span></label>
+            <label class="radio-opt" onclick="selectRadio('I3','par',this)"><input type="radio" name="I3" value="par"><span class="opt-label">On par — similar to competitors</span></label>
+            <label class="radio-opt" onclick="selectRadio('I3','ahead',this)"><input type="radio" name="I3" value="ahead"><span class="opt-label">Ahead — early adopter advantage</span></label>
+            <label class="radio-opt" onclick="selectRadio('I3','leading',this)"><input type="radio" name="I3" value="leading"><span class="opt-label">Leading edge — setting the standard in the sector</span></label>
+          </div>
+        </div>
+
+        <div class="nav-buttons">
+          <button class="btn btn-prev" onclick="goToSection(8)">&larr; Previous</button>
+          <button class="btn btn-next" onclick="goToSection(10)">Next: Brand &rarr;</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════ SECTION 10: BRAND ═══════════════════════════════ -->
+  <div class="section-view" id="view-10">
+    <div class="section-card">
+      <div class="section-header">
+        <div class="sec-label">Section 10 of 13</div>
+        <h2>Brand &amp; Market Position</h2>
+        <p>A strong brand reduces customer acquisition cost and supports pricing power.</p>
+      </div>
+      <div class="section-body">
+        <div class="section-intro">
+          <strong>Why we ask:</strong> Brand equity is an intangible asset that can significantly affect enterprise value. Online reputation, referral rates, and pricing power all reflect brand strength.
+        </div>
+
+        <div class="q-card">
+          <div class="q-code">BR1</div>
+          <div class="q-text">Online reputation and reviews</div>
+          <div class="radio-group" id="BR1-group">
+            <label class="radio-opt" onclick="selectRadio('BR1','poor',this)"><input type="radio" name="BR1" value="poor"><span class="opt-label">Poor or no online presence / negative reviews</span></label>
+            <label class="radio-opt" onclick="selectRadio('BR1','mixed',this)"><input type="radio" name="BR1" value="mixed"><span class="opt-label">Mixed — average ratings (3–3.9 stars)</span></label>
+            <label class="radio-opt" onclick="selectRadio('BR1','good',this)"><input type="radio" name="BR1" value="good"><span class="opt-label">Good — 4+ star rating with meaningful review volume</span></label>
+            <label class="radio-opt" onclick="selectRadio('BR1','excellent',this)"><input type="radio" name="BR1" value="excellent"><span class="opt-label">Excellent — 4.5+ stars, industry awards or recognition</span></label>
+          </div>
+        </div>
+
+        <div class="q-card">
+          <div class="q-code">BR2</div>
+          <div class="q-text">Primary customer acquisition channel</div>
+          <div class="radio-group" id="BR2-group">
+            <label class="radio-opt" onclick="selectRadio('BR2','owner',this)"><input type="radio" name="BR2" value="owner"><span class="opt-label">Owner's personal network — not transferable</span></label>
+            <label class="radio-opt" onclick="selectRadio('BR2','referral',this)"><input type="radio" name="BR2" value="referral"><span class="opt-label">Word of mouth / referrals</span></label>
+            <label class="radio-opt" onclick="selectRadio('BR2','digital',this)"><input type="radio" name="BR2" value="digital"><span class="opt-label">Digital marketing — SEO, paid ads, social media</span></label>
+            <label class="radio-opt" onclick="selectRadio('BR2','omni',this)"><input type="radio" name="BR2" value="omni"><span class="opt-label">Multi-channel — diversified and documented acquisition strategy</span></label>
+          </div>
+        </div>
+
+        <div class="q-card">
+          <div class="q-code">BR3</div>
+          <div class="q-text">Pricing power</div>
+          <div class="radio-group" id="BR3-group">
+            <label class="radio-opt" onclick="selectRadio('BR3','taker',this)"><input type="radio" name="BR3" value="taker"><span class="opt-label">Price taker — must match market pricing</span></label>
+            <label class="radio-opt" onclick="selectRadio('BR3','some',this)"><input type="radio" name="BR3" value="some"><span class="opt-label">Some pricing power — modest premium to market</span></label>
+            <label class="radio-opt" onclick="selectRadio('BR3','premium',this)"><input type="radio" name="BR3" value="premium"><span class="opt-label">Clear premium pricing — customers pay above market</span></label>
+            <label class="radio-opt" onclick="selectRadio('BR3','leader',this)"><input type="radio" name="BR3" value="leader"><span class="opt-label">Market leader — we set pricing for the sector</span></label>
+          </div>
+        </div>
+
+        <div class="nav-buttons">
+          <button class="btn btn-prev" onclick="goToSection(9)">&larr; Previous</button>
+          <button class="btn btn-next" onclick="goToSection(11)">Next: Strategy &rarr;</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════ SECTION 11: STRATEGY ═══════════════════════════════ -->
+  <div class="section-view" id="view-11">
+    <div class="section-card">
+      <div class="section-header">
+        <div class="sec-label">Section 11 of 13</div>
+        <h2>Strategic Position &amp; Governance</h2>
+        <p>Governance structures and strategic clarity signal a mature, sale-ready business.</p>
+      </div>
+      <div class="section-body">
+        <div class="section-intro">
+          <strong>Why we ask:</strong> Governance, advisory structures, and strategic clarity are diligence indicators of how professionalised the business is. They signal readiness for institutional buyers.
+        </div>
+
+        <div class="q-card">
+          <div class="q-code">S1</div>
+          <div class="q-text">Board or advisory structure</div>
+          <div class="radio-group" id="S1-group">
+            <label class="radio-opt" onclick="selectRadio('S1','none',this)"><input type="radio" name="S1" value="none"><span class="opt-label">No board or advisors — owner makes all decisions</span></label>
+            <label class="radio-opt" onclick="selectRadio('S1','informal',this)"><input type="radio" name="S1" value="informal"><span class="opt-label">Informal advisory — occasional external input</span></label>
+            <label class="radio-opt" onclick="selectRadio('S1','advisory',this)"><input type="radio" name="S1" value="advisory"><span class="opt-label">Formal advisory board — meets regularly</span></label>
+            <label class="radio-opt" onclick="selectRadio('S1','board',this)"><input type="radio" name="S1" value="board"><span class="opt-label">Formal board with independent directors and minutes</span></label>
+          </div>
+        </div>
+
+        <div class="q-card">
+          <div class="q-code">S2</div>
+          <div class="q-text">Competitive moat assessment</div>
+          <div class="radio-group" id="S2-group">
+            <label class="radio-opt" onclick="selectRadio('S2','none',this)"><input type="radio" name="S2" value="none"><span class="opt-label">No moat — easily replicated</span></label>
+            <label class="radio-opt" onclick="selectRadio('S2','weak',this)"><input type="radio" name="S2" value="weak"><span class="opt-label">Weak — some switching costs or relationships</span></label>
+            <label class="radio-opt" onclick="selectRadio('S2','moderate',this)"><input type="radio" name="S2" value="moderate"><span class="opt-label">Moderate — established brand, contracts, or scale advantages</span></label>
+            <label class="radio-opt" onclick="selectRadio('S2','strong',this)"><input type="radio" name="S2" value="strong"><span class="opt-label">Strong — proprietary technology, licences, or network effects</span></label>
+          </div>
+        </div>
+
+        <div class="q-card">
+          <div class="q-code">S3</div>
+          <div class="q-text">3-year strategic plan existence</div>
+          <div class="radio-group" id="S3-group">
+            <label class="radio-opt" onclick="selectRadio('S3','none',this)"><input type="radio" name="S3" value="none"><span class="opt-label">No plan — operating year to year</span></label>
+            <label class="radio-opt" onclick="selectRadio('S3','draft',this)"><input type="radio" name="S3" value="draft"><span class="opt-label">Draft plan — in development</span></label>
+            <label class="radio-opt" onclick="selectRadio('S3','written',this)"><input type="radio" name="S3" value="written"><span class="opt-label">Written 3-year plan with financial projections</span></label>
+            <label class="radio-opt" onclick="selectRadio('S3','board',this)"><input type="radio" name="S3" value="board"><span class="opt-label">Board-approved plan with KPIs, quarterly reviews, and scenario modelling</span></label>
+          </div>
+        </div>
+
+        <div class="nav-buttons">
+          <button class="btn btn-prev" onclick="goToSection(10)">&larr; Previous</button>
+          <button class="btn btn-next" onclick="goToSection(12)">Next: Exit Readiness &rarr;</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════ SECTION 12: EXIT ═══════════════════════════════ -->
+  <div class="section-view" id="view-12">
+    <div class="section-card">
+      <div class="section-header">
+        <div class="sec-label">Section 12 of 13</div>
+        <h2>Exit Readiness</h2>
+        <p>How prepared is the business for a transaction or ownership transition?</p>
+      </div>
+      <div class="section-body">
+        <div class="section-intro">
+          <strong>Why we ask:</strong> Exit readiness affects deal timelines, buyer confidence, and ultimately the sale price achieved. Sellers who have prepared thoroughly typically receive higher valuations and faster deal execution.
+        </div>
+
+        <div class="q-card">
+          <div class="q-code">E1</div>
+          <div class="q-text">Intended exit timeframe</div>
+          <div class="radio-group" id="E1-group">
+            <label class="radio-opt" onclick="selectRadio('E1','now',this)"><input type="radio" name="E1" value="now"><span class="opt-label">Immediate — ready to transact now or within 6 months</span></label>
+            <label class="radio-opt" onclick="selectRadio('E1','1to2',this)"><input type="radio" name="E1" value="1to2"><span class="opt-label">1 – 2 years</span></label>
+            <label class="radio-opt" onclick="selectRadio('E1','3to5',this)"><input type="radio" name="E1" value="3to5"><span class="opt-label">3 – 5 years</span></label>
+            <label class="radio-opt" onclick="selectRadio('E1','5plus',this)"><input type="radio" name="E1" value="5plus"><span class="opt-label">5+ years — early stage planning</span></label>
+          </div>
+        </div>
+
+        <div class="q-card">
+          <div class="q-code">E2</div>
+          <div class="q-text">Preferred exit structure</div>
+          <div class="radio-group" id="E2-group">
+            <label class="radio-opt" onclick="selectRadio('E2','full',this)"><input type="radio" name="E2" value="full"><span class="opt-label">Full sale — 100% exit</span></label>
+            <label class="radio-opt" onclick="selectRadio('E2','partial',this)"><input type="radio" name="E2" value="partial"><span class="opt-label">Partial sale / equity partner — retain some stake</span></label>
+            <label class="radio-opt" onclick="selectRadio('E2','mbo',this)"><input type="radio" name="E2" value="mbo"><span class="opt-label">Management buyout (MBO)</span></label>
+            <label class="radio-opt" onclick="selectRadio('E2','family',this)"><input type="radio" name="E2" value="family"><span class="opt-label">Succession — family or internal transition</span></label>
+            <label class="radio-opt" onclick="selectRadio('E2','unsure',this)"><input type="radio" name="E2" value="unsure"><span class="opt-label">Unsure — open to exploring options</span></label>
+          </div>
+        </div>
+
+        <div class="q-card">
+          <div class="q-code">E3</div>
+          <div class="q-text">Data room / disclosure readiness</div>
+          <div class="radio-group" id="E3-group">
+            <label class="radio-opt" onclick="selectRadio('E3','none',this)"><input type="radio" name="E3" value="none"><span class="opt-label">No preparation — starting from scratch</span></label>
+            <label class="radio-opt" onclick="selectRadio('E3','some',this)"><input type="radio" name="E3" value="some"><span class="opt-label">Some documents assembled — financial records available</span></label>
+            <label class="radio-opt" onclick="selectRadio('E3','partial',this)"><input type="radio" name="E3" value="partial"><span class="opt-label">Partially prepared — most key documents available</span></label>
+            <label class="radio-opt" onclick="selectRadio('E3','ready',this)"><input type="radio" name="E3" value="ready"><span class="opt-label">Ready — structured data room with all key documents</span></label>
+          </div>
+        </div>
+
+        <div class="q-card">
+          <div class="q-code">E4</div>
+          <div class="q-text">Have you engaged any advisors for your exit?</div>
+          <div class="radio-group" id="E4-group">
+            <label class="radio-opt" onclick="selectRadio('E4','none',this)"><input type="radio" name="E4" value="none"><span class="opt-label">No — this questionnaire is my first step</span></label>
+            <label class="radio-opt" onclick="selectRadio('E4','acc',this)"><input type="radio" name="E4" value="acc"><span class="opt-label">Accountant or financial planner only</span></label>
+            <label class="radio-opt" onclick="selectRadio('E4','legal',this)"><input type="radio" name="E4" value="legal"><span class="opt-label">Legal advisor engaged</span></label>
+            <label class="radio-opt" onclick="selectRadio('E4','ma',this)"><input type="radio" name="E4" value="ma"><span class="opt-label">M&amp;A advisor or business broker engaged</span></label>
+          </div>
+        </div>
+
+        <div class="nav-buttons">
+          <button class="btn btn-prev" onclick="goToSection(11)">&larr; Previous</button>
+          <button class="btn btn-next" onclick="goToSection(13)">Next: Capacity &rarr;</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════ SECTION 13: CAPACITY ═══════════════════════════════ -->
+  <div class="section-view" id="view-13">
+    <div class="section-card">
+      <div class="section-header">
+        <div class="sec-label">Section 13 of 13</div>
+        <h2>Capacity &amp; Scalability</h2>
+        <p>Can the business grow without proportional cost increases?</p>
+      </div>
+      <div class="section-body">
+        <div class="section-intro">
+          <strong>Why we ask:</strong> Scalable businesses with operational leverage attract higher multiples. Buyers look for headroom — the ability to grow revenue without a 1:1 increase in costs or headcount.
+        </div>
+
+        <div class="q-card">
+          <div class="q-code">CA1</div>
+          <div class="q-text">Current capacity utilisation</div>
+          <div class="radio-group" id="CA1-group">
+            <label class="radio-opt" onclick="selectRadio('CA1','over',this)"><input type="radio" name="CA1" value="over"><span class="opt-label">At or over capacity — growth requires significant new investment</span></label>
+            <label class="radio-opt" onclick="selectRadio('CA1','near',this)"><input type="radio" name="CA1" value="near"><span class="opt-label">Near capacity — limited headroom (10–20%)</span></label>
+            <label class="radio-opt" onclick="selectRadio('CA1','moderate',this)"><input type="radio" name="CA1" value="moderate"><span class="opt-label">Moderate headroom — could absorb 20–40% growth</span></label>
+            <label class="radio-opt" onclick="selectRadio('CA1','significant',this)"><input type="radio" name="CA1" value="significant"><span class="opt-label">Significant headroom — could absorb 40%+ growth without new infrastructure</span></label>
+          </div>
+        </div>
+
+        <div class="q-card">
+          <div class="q-code">CA2</div>
+          <div class="q-text">Revenue model scalability</div>
+          <div class="radio-group" id="CA2-group">
+            <label class="radio-opt" onclick="selectRadio('CA2','linear',this)"><input type="radio" name="CA2" value="linear"><span class="opt-label">Linear — each dollar of revenue requires proportional headcount</span></label>
+            <label class="radio-opt" onclick="selectRadio('CA2','some',this)"><input type="radio" name="CA2" value="some"><span class="opt-label">Some leverage — economies of scale at higher volumes</span></label>
+            <label class="radio-opt" onclick="selectRadio('CA2','good',this)"><input type="radio" name="CA2" value="good"><span class="opt-label">Good leverage — can grow revenue faster than costs</span></label>
+            <label class="radio-opt" onclick="selectRadio('CA2','high',this)"><input type="radio" name="CA2" value="high"><span class="opt-label">High leverage — software, licences, or IP-based model</span></label>
+          </div>
+        </div>
+
+        <div class="q-card">
+          <div class="q-code">CA3</div>
+          <div class="q-text">Geographic or market expansion potential</div>
+          <div class="radio-group" id="CA3-group">
+            <label class="radio-opt" onclick="selectRadio('CA3','limited',this)"><input type="radio" name="CA3" value="limited"><span class="opt-label">Limited — local only, no expansion pathway</span></label>
+            <label class="radio-opt" onclick="selectRadio('CA3','regional',this)"><input type="radio" name="CA3" value="regional"><span class="opt-label">Regional expansion possible</span></label>
+            <label class="radio-opt" onclick="selectRadio('CA3','national',this)"><input type="radio" name="CA3" value="national"><span class="opt-label">National — clear pathway to other states</span></label>
+            <label class="radio-opt" onclick="selectRadio('CA3','intl',this)"><input type="radio" name="CA3" value="intl"><span class="opt-label">International — global scalability or active export market</span></label>
+          </div>
+        </div>
+
+        <div class="q-card">
+          <div class="q-code">CA4</div>
+          <div class="q-text">Additional comments or context</div>
+          <div class="q-hint">Anything else you'd like to share that may affect the valuation assessment?</div>
+          <textarea id="CA4" rows="4" placeholder="Optional: share any context about your business, recent events, or specific concerns..." oninput="saveData()" style="resize:vertical"></textarea>
+        </div>
+
+        <div class="nav-buttons">
+          <button class="btn btn-prev" onclick="goToSection(12)">&larr; Previous</button>
+          <button class="btn btn-submit" onclick="submitAssessment()">Generate Valuation Report &rarr;</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════ RESULTS ═══════════════════════════════ -->
+  <div class="section-view" id="view-results">
+    <div class="results-hero">
+      <div class="hero-label">Preliminary Valuation Report</div>
+      <h2 id="res-business-name">Your Business</h2>
+      <div class="range-display" id="res-range">Calculating...</div>
+      <p>Indicative enterprise value range based on normalised EBITDA and sector multiple</p>
+    </div>
+
+    <div class="results-grid">
+      <div class="result-card">
+        <h3>Financial Summary</h3>
+        <div class="score-row"><span class="score-label">Revenue</span><span id="res-revenue">—</span></div>
+        <div class="score-row"><span class="score-label">EBITDA (Reported)</span><span id="res-ebitda">—</span></div>
+        <div class="score-row"><span class="score-label">Normalised EBITDA</span><span id="res-norm-ebitda">—</span></div>
+        <div class="score-row"><span class="score-label">EBITDA Multiple</span><span id="res-multiple">—</span></div>
+        <div class="score-row"><span class="score-label">Indicative Range</span><span id="res-range-2" style="font-weight:700;color:var(--gold)">—</span></div>
+      </div>
+
+      <div class="result-card">
+        <h3>Value Driver Scorecard</h3>
+        <div class="score-row"><span class="score-label">Financial Controls</span><span class="score-badge" id="sc-fin">—</span></div>
+        <div class="score-row"><span class="score-label">Customer Quality</span><span class="score-badge" id="sc-cust">—</span></div>
+        <div class="score-row"><span class="score-label">Team Depth</span><span class="score-badge" id="sc-team">—</span></div>
+        <div class="score-row"><span class="score-label">Growth Potential</span><span class="score-badge" id="sc-growth">—</span></div>
+        <div class="score-row"><span class="score-label">Risk Profile</span><span class="score-badge" id="sc-risk">—</span></div>
+        <div class="score-row"><span class="score-label">Exit Readiness</span><span class="score-badge" id="sc-exit">—</span></div>
+      </div>
+
+      <div class="result-card" style="grid-column: 1/-1">
+        <h3>Key Observations</h3>
+        <div id="res-observations" style="font-size:14px;line-height:1.8;color:var(--navy)"></div>
+      </div>
+    </div>
+
+    <div style="text-align:center;margin:32px 0">
+      <button class="btn btn-next" onclick="window.print()" style="margin-right:12px">Print / Save as PDF</button>
+      <button class="btn btn-prev" onclick="goToSection(13)">Edit Responses</button>
+    </div>
+
+    <div class="disclaimer">
+      <strong>Important Disclaimer:</strong> This report provides a preliminary, indicative valuation range only and does not constitute financial advice. The calculation is based on self-reported information and simplified EBITDA multiple methodology. Actual transaction values may differ materially based on market conditions, due diligence findings, deal structure, buyer appetite, and detailed financial analysis. This tool is intended as a starting point for advisor conversations only. SME Association of Australia recommends engaging a qualified M&amp;A advisor before making any decisions. All data is handled in accordance with the Australian Privacy Act 1988.
+    </div>
+  </div>
+
+</div><!-- end main-wrap -->
+
+<script>
+// ═══════════════ STATE ═══════════════
+const SECTIONS = [
+  { id: 1, name: 'Intake' },
+  { id: 2, name: 'Financials' },
+  { id: 3, name: 'Deep Dive' },
+  { id: 4, name: 'Growth' },
+  { id: 5, name: 'Customers' },
+  { id: 6, name: 'Operations' },
+  { id: 7, name: 'Team' },
+  { id: 8, name: 'Risk' },
+  { id: 9, name: 'Innovation' },
+  { id: 10, name: 'Brand' },
+  { id: 11, name: 'Strategy' },
+  { id: 12, name: 'Exit' },
+  { id: 13, name: 'Capacity' },
+];
+
+let currentSection = null;
+let completed = new Set();
+
+function startAssessment() {
+  document.getElementById('progressBar').style.display = 'block';
+  document.getElementById('autosaveNotice').style.display = 'block';
+  buildPills();
+  goToSection(1);
+}
+
+function buildPills() {
+  const container = document.getElementById('progressPills');
+  container.innerHTML = SECTIONS.map(s =>
+    `<div class="pill" id="pill-${s.id}" onclick="goToSection(${s.id})">
+      <span class="pill-num">${s.id}</span>${s.name}
+    </div>`
+  ).join('');
+}
+
+function goToSection(n) {
+  // hide all
+  document.querySelectorAll('.section-view').forEach(v => v.classList.remove('active'));
+  // show target
+  const target = document.getElementById(`view-${n}`);
+  if (target) {
+    target.classList.add('active');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+  // mark previous as completed
+  if (currentSection && n > currentSection) {
+    completed.add(currentSection);
+  }
+  currentSection = n;
+  updatePills();
+  showAutosave();
+}
+
+function updatePills() {
+  SECTIONS.forEach(s => {
+    const pill = document.getElementById(`pill-${s.id}`);
+    if (!pill) return;
+    pill.classList.remove('active', 'completed');
+    if (s.id === currentSection) pill.classList.add('active');
+    else if (completed.has(s.id)) pill.classList.add('completed');
+  });
+}
+
+// ═══════════════ FORM HELPERS ═══════════════
+function selectRadio(name, value, labelEl) {
+  // unselect all in group
+  const group = document.getElementById(`${name}-group`);
+  if (group) group.querySelectorAll('.radio-opt').forEach(el => el.classList.remove('selected'));
+  if (labelEl) labelEl.classList.add('selected');
+  // set radio
+  const radio = labelEl ? labelEl.querySelector('input[type=radio]') : document.querySelector(`input[name=${name}][value="${value}"]`);
+  if (radio) radio.checked = true;
+  updateCalc();
+  showAutosave();
+}
+
+function toggleCheck(id, labelEl) {
+  const cb = typeof labelEl === 'string' ? document.getElementById(labelEl) : labelEl.querySelector('input[type=checkbox]');
+  if (!cb) return;
+  if (typeof labelEl === 'string') {
+    // called with id string and separate opt element
+    cb.checked = !cb.checked;
+    const opt = document.getElementById(labelEl + 'Opt') || cb.closest('.check-opt');
+    if (opt) opt.classList.toggle('selected', cb.checked);
+  } else {
+    cb.checked = !cb.checked;
+    labelEl.classList.toggle('selected', cb.checked);
+  }
+  showAutosave();
+}
+
+// ═══════════════ VALUATION CALCULATOR ═══════════════
+function getMultipleRange(sectorVal) {
+  const map = {
+    '2to3':   [2.0, 3.0],
+    '2.5to4': [2.5, 4.0],
+    '3to4.5': [3.0, 4.5],
+    '3to5':   [3.0, 5.0],
+    '3.5to5': [3.5, 5.0],
+    '4to6':   [4.0, 6.0],
+    '4to6b':  [4.0, 6.0],
+    '5to7':   [5.0, 7.0],
+    '6to8':   [6.0, 8.0],
+  };
+  return map[sectorVal] || null;
+}
+
+function fmt(n) {
+  if (n >= 1e6) return '$' + (n/1e6).toFixed(2) + 'M';
+  if (n >= 1e3) return '$' + (n/1e3).toFixed(0) + 'K';
+  return '$' + n.toFixed(0);
+}
+
+function updateCalc() {
+  const b2 = parseFloat(document.getElementById('B2')?.value) || 0;
+  const d2a = parseFloat(document.getElementById('D2a')?.value) || 0;
+  const d2b = parseFloat(document.getElementById('D2b')?.value) || 0;
+  const d3 = parseFloat(document.getElementById('D3')?.value) || 0;
+  const ownerAdj = d2a - d2b; // positive = add back, negative = deduct
+  const normEbitda = b2 + ownerAdj + d3;
+  const sector = document.getElementById('D1')?.value;
+  const range = getMultipleRange(sector);
+
+  const eEl = document.getElementById('calc-ebitda');
+  const mEl = document.getElementById('calc-multiple');
+  const rEl = document.getElementById('calc-range');
+  const frEl = document.getElementById('calc-full-range');
+  const indEl = document.getElementById('calc-indicators');
+
+  if (eEl) eEl.textContent = normEbitda > 0 ? fmt(normEbitda) : '$—';
+  if (mEl) mEl.textContent = range ? `${range[0]}× – ${range[1]}×` : '—×';
+
+  if (normEbitda > 0 && range) {
+    const low = normEbitda * range[0];
+    const high = normEbitda * range[1];
+    if (rEl) rEl.textContent = `${fmt(low)} – ${fmt(high)}`;
+    if (frEl) frEl.textContent = `${fmt(low)} – ${fmt(high)}`;
+
+    // indicators
+    const margin = b2 / (parseFloat(document.getElementById('B1')?.value) || 1);
+    const pills = [];
+    if (normEbitda >= 500000) pills.push('<span class="ind-pill good">EBITDA ✓</span>');
+    else pills.push('<span class="ind-pill warn">EBITDA Low</span>');
+    if (margin > 0.15) pills.push('<span class="ind-pill good">Margin Strong</span>');
+    else if (margin > 0.05) pills.push('<span class="ind-pill warn">Margin Moderate</span>');
+    else pills.push('<span class="ind-pill poor">Margin Thin</span>');
+    if (indEl) indEl.innerHTML = pills.join('');
+  } else {
+    if (rEl) rEl.textContent = '$—';
+    if (frEl) frEl.textContent = 'Enter EBITDA and select sector to calculate';
+    if (indEl) indEl.innerHTML = '';
+  }
+  saveData();
+}
+
+// ═══════════════ AUTOSAVE ═══════════════
+let saveTimer;
+function saveData() {
+  clearTimeout(saveTimer);
+  saveTimer = setTimeout(() => {
+    const notice = document.getElementById('autosaveNotice');
+    if (notice) {
+      notice.textContent = 'Progress saved ✓';
+      notice.classList.add('saved');
+      setTimeout(() => {
+        notice.textContent = 'Progress auto-saved';
+        notice.classList.remove('saved');
+      }, 2000);
+    }
+  }, 800);
+}
+
+function showAutosave() {
+  saveData();
+}
+
+// ═══════════════ SCORECARD ═══════════════
+function scoreFinancials() {
+  const pts = [];
+  const b6 = getRadioVal('B6');
+  if (b6 === 'realtime') pts.push(3); else if (b6 === 'monthly') pts.push(2); else if (b6 === 'qtrly') pts.push(1); else pts.push(0);
+  const b8 = getRadioVal('B8');
+  if (b8 === 'monthly') pts.push(3); else if (b8 === 'qtrly') pts.push(2); else if (b8 === 'informal') pts.push(1); else pts.push(0);
+  const b10 = getRadioVal('B10');
+  if (b10 === 'full') pts.push(3); else if (b10 === 'pl13') pts.push(2); else if (b10 === 'pl') pts.push(1); else pts.push(0);
+  return avg(pts);
+}
+
+function scoreCustomers() {
+  const pts = [];
+  const c1 = getRadioVal('C1');
+  if (c1 === 'over3') pts.push(3); else if (c1 === '1to3') pts.push(2); else if (c1 === 'u1yr') pts.push(1); else pts.push(0);
+  const c2 = getRadioVal('C2');
+  if (c2 === 'high') pts.push(3); else if (c2 === 'majority') pts.push(2); else if (c2 === 'some') pts.push(1); else pts.push(0);
+  const c5 = getRadioVal('C5');
+  if (c5 === 'yes') pts.push(3); else if (c5 === 'mostly') pts.push(2); else if (c5 === 'some') pts.push(1); else pts.push(0);
+  return avg(pts);
+}
+
+function scoreTeam() {
+  const t1 = getRadioVal('T1');
+  const t2 = getRadioVal('T2');
+  const pts = [];
+  if (t1 === 'yes') pts.push(3); else if (t1 === 'mostly') pts.push(2); else if (t1 === 'short') pts.push(1); else pts.push(0);
+  if (t2 === 'strong') pts.push(3); else if (t2 === 'capable') pts.push(2); else if (t2 === 'some') pts.push(1); else pts.push(0);
+  return avg(pts);
+}
+
+function scoreGrowth() {
+  const pts = [];
+  const g1 = getRadioVal('G1');
+  if (g1 === 'board') pts.push(3); else if (g1 === 'written') pts.push(2); else if (g1 === 'informal') pts.push(1); else pts.push(0);
+  const d5 = getRadioVal('D5');
+  if (d5 === 'strong') pts.push(3); else if (d5 === 'moderate') pts.push(2); else if (d5 === 'stable') pts.push(1); else pts.push(0);
+  return avg(pts);
+}
+
+function scoreRisk() {
+  const pts = [];
+  const r1 = getRadioVal('R1');
+  if (r1 === 'proactive') pts.push(3); else if (r1 === 'good') pts.push(2); else if (r1 === 'basic') pts.push(1); else pts.push(0);
+  const r4 = getRadioVal('R4');
+  if (r4 === 'tailwind') pts.push(3); else if (r4 === 'stable') pts.push(2); else if (r4 === 'some') pts.push(1); else pts.push(0);
+  return avg(pts);
+}
+
+function scoreExit() {
+  const pts = [];
+  const e3 = getRadioVal('E3');
+  if (e3 === 'ready') pts.push(3); else if (e3 === 'partial') pts.push(2); else if (e3 === 'some') pts.push(1); else pts.push(0);
+  const e4 = getRadioVal('E4');
+  if (e4 === 'ma') pts.push(3); else if (e4 === 'legal') pts.push(2); else if (e4 === 'acc') pts.push(1); else pts.push(0);
+  return avg(pts);
+}
+
+function avg(arr) { return arr.length ? arr.reduce((a,b) => a+b, 0) / arr.length : 0; }
+function getRadioVal(name) {
+  const el = document.querySelector(`input[name="${name}"]:checked`);
+  return el ? el.value : null;
+}
+function scoreLabel(n) {
+  if (n >= 2.5) return ['good', 'Strong'];
+  if (n >= 1.5) return ['ok', 'Moderate'];
+  return ['poor', 'Needs Work'];
+}
+
+// ═══════════════ SUBMIT / RESULTS ═══════════════
+function submitAssessment() {
+  completed.add(13);
+  updatePills();
+
+  // financials
+  const b1 = parseFloat(document.getElementById('B1')?.value) || 0;
+  const b2 = parseFloat(document.getElementById('B2')?.value) || 0;
+  const d2a = parseFloat(document.getElementById('D2a')?.value) || 0;
+  const d2b = parseFloat(document.getElementById('D2b')?.value) || 0;
+  const d3 = parseFloat(document.getElementById('D3')?.value) || 0;
+  const normEbitda = b2 + (d2a - d2b) + d3;
+  const sector = document.getElementById('D1')?.value;
+  const range = getMultipleRange(sector);
+
+  document.getElementById('res-business-name').textContent =
+    document.getElementById('legalName')?.value || 'Your Business';
+  document.getElementById('res-revenue').textContent = b1 > 0 ? fmt(b1) : '—';
+  document.getElementById('res-ebitda').textContent = b2 > 0 ? fmt(b2) : '—';
+  document.getElementById('res-norm-ebitda').textContent = normEbitda > 0 ? fmt(normEbitda) : '—';
+
+  if (range) {
+    const mLabel = `${range[0]}× – ${range[1]}×`;
+    document.getElementById('res-multiple').textContent = mLabel;
+    if (normEbitda > 0) {
+      const low = normEbitda * range[0];
+      const high = normEbitda * range[1];
+      const rangeStr = `${fmt(low)} – ${fmt(high)}`;
+      document.getElementById('res-range').textContent = rangeStr;
+      document.getElementById('res-range-2').textContent = rangeStr;
+    } else {
+      document.getElementById('res-range').textContent = 'Insufficient data';
+      document.getElementById('res-range-2').textContent = '—';
+    }
+  } else {
+    document.getElementById('res-range').textContent = 'Sector not selected';
+    document.getElementById('res-multiple').textContent = '—';
+  }
+
+  // scorecards
+  const scores = {
+    fin: scoreFinancials(), cust: scoreCustomers(), team: scoreTeam(),
+    growth: scoreGrowth(), risk: scoreRisk(), exit: scoreExit()
+  };
+  ['fin','cust','team','growth','risk','exit'].forEach(k => {
+    const el = document.getElementById(`sc-${k === 'cust' ? 'cust' : k === 'growth' ? 'growth' : k === 'exit' ? 'exit' : k === 'fin' ? 'fin' : k}`);
+    if (el) {
+      const [cls, lbl] = scoreLabel(scores[k]);
+      el.className = `score-badge ${cls}`;
+      el.textContent = lbl;
+    }
+  });
+
+  // observations
+  const obs = [];
+  if (scores.team < 1.5) obs.push('⚠️ <strong>Owner Dependency:</strong> The business appears heavily reliant on the owner. Building a capable second tier of management before sale is strongly recommended.');
+  if (scores.fin >= 2.5) obs.push('✅ <strong>Financial Controls:</strong> Strong financial reporting and budgeting processes will support buyer confidence and streamline due diligence.');
+  if (scores.cust >= 2.5) obs.push('✅ <strong>Customer Quality:</strong> Contracted, long-tenure customer relationships represent a significant value driver.');
+  if (scores.growth < 1.5) obs.push('⚠️ <strong>Growth Strategy:</strong> A documented growth strategy with pipeline visibility would improve buyer appetite and support a higher multiple.');
+  if (scores.exit < 1.5) obs.push('ℹ️ <strong>Exit Preparation:</strong> Engaging an M&A advisor early and preparing a data room can materially improve sale outcomes.');
+  if (scores.risk >= 2.5) obs.push('✅ <strong>Risk Profile:</strong> Low risk indicators including compliance and industry tailwinds support the upper end of the valuation range.');
+  if (obs.length === 0) obs.push('Your business shows a balanced profile across the key value driver categories. Review individual sections above for specific improvement areas.');
+  document.getElementById('res-observations').innerHTML = obs.join('<br><br>');
+
+  // show results
+  document.querySelectorAll('.section-view').forEach(v => v.classList.remove('active'));
+  document.getElementById('view-results').classList.add('active');
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+</script>
+</body>
+</html>
