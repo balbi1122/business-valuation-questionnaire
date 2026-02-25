@@ -884,7 +884,75 @@ input[type="radio"], input[type="checkbox"] { display: none; }
   .header-text h1 { font-size: 14px; }
   .progress-pills { gap: 4px; }
   .pill { font-size: 10px; padding: 4px 8px; }
+  .location-card-inner { grid-template-columns: 1fr; }
 }
+
+/* ===== LOCATION & CURRENCY ===== */
+.location-card {
+  background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+  border-radius: var(--radius);
+  padding: 26px 28px;
+  margin-bottom: 24px;
+  color: #fff;
+  box-shadow: var(--shadow-lg);
+}
+.location-card h3 {
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1.2px;
+  color: rgba(255,255,255,0.65);
+  margin-bottom: 16px;
+}
+.location-card-inner {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 14px;
+  align-items: end;
+}
+.location-card label {
+  display: block;
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: rgba(255,255,255,0.65);
+  margin-bottom: 6px;
+}
+.location-card select {
+  width: 100%;
+  padding: 10px 14px;
+  border-radius: 6px;
+  border: 1.5px solid rgba(255,255,255,0.2);
+  background: rgba(255,255,255,0.10);
+  color: #fff;
+  font-size: 14px;
+  outline: none;
+  cursor: pointer;
+  appearance: none;
+  -webkit-appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath fill='rgba(255,255,255,0.6)' d='M6 8L0 0h12z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 12px center;
+  padding-right: 32px;
+  transition: border-color 0.2s, background-color 0.2s;
+}
+.location-card select:focus { border-color: var(--accent); background-color: rgba(255,255,255,0.15); }
+.location-card select option { background: #1a3a5c; color: #fff; }
+.currency-badge {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: rgba(255,255,255,0.10);
+  border: 1.5px solid rgba(255,255,255,0.2);
+  border-radius: 6px;
+  padding: 10px 14px;
+  min-height: 44px;
+}
+.currency-badge .cur-flag { font-size: 20px; }
+.currency-badge .cur-details { display: flex; flex-direction: column; }
+.currency-badge .cur-sym-big { font-size: 16px; font-weight: 700; color: var(--accent); line-height: 1; }
+.currency-badge .cur-name-sm { font-size: 11px; color: rgba(255,255,255,0.6); margin-top: 2px; }
 </style>
 </head>
 <body>
@@ -954,6 +1022,39 @@ input[type="radio"], input[type="checkbox"] { display: none; }
       <p>Tell us about your business and key contact details.</p>
     </div>
     <div id="err-s1" class="error-banner"></div>
+
+    <!-- LOCATION & CURRENCY -->
+    <div class="location-card fade-slide-in" id="card-s1-location">
+      <h3>&#127760; Business Location &amp; Currency</h3>
+      <div class="location-card-inner">
+        <div>
+          <label for="bizCountry">Country *</label>
+          <select id="bizCountry" onchange="onCountryChange(); saveState();">
+            <option value="">— Select country —</option>
+            <option value="AU">&#127462;&#127482; Australia</option>
+            <option value="US">&#127482;&#127480; United States</option>
+            <option value="CA">&#127464;&#127462; Canada</option>
+            <option value="GB">&#127468;&#127463; United Kingdom</option>
+          </select>
+        </div>
+        <div>
+          <label for="bizState">State / Province / County *</label>
+          <select id="bizState" onchange="saveState();" disabled>
+            <option value="">— Select country first —</option>
+          </select>
+        </div>
+        <div>
+          <label>Currency</label>
+          <div class="currency-badge" id="currencyBadge">
+            <span class="cur-flag" id="curFlag">&#127760;</span>
+            <div class="cur-details">
+              <span class="cur-sym-big" id="curSymBig">—</span>
+              <span class="cur-name-sm" id="curNameSm">Select a country</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
 
     <div class="card fade-slide-in" id="card-s1-basic">
       <h3>&#127968; Business Details</h3>
@@ -1077,23 +1178,23 @@ input[type="radio"], input[type="checkbox"] { display: none; }
       <h3>&#128176; Revenue &amp; EBITDA</h3>
       <div class="card-grid">
         <div class="field-group">
-          <label for="B1">Revenue — Current Year (A$) *
+          <label for="B1">Revenue — Current Year (<span class="cur-sym">A$</span>) *
             <span class="tt" data-tip="Total gross revenue for your most recently completed financial year (before expenses).">?</span>
           </label>
           <input type="number" id="B1" placeholder="e.g. 2500000" min="0" oninput="updateCalc(); updateYoY(); saveState()">
         </div>
         <div class="field-group">
-          <label for="B1_prev">Revenue — Prior Year (A$)</label>
+          <label for="B1_prev">Revenue — Prior Year (<span class="cur-sym">A$</span>)</label>
           <input type="number" id="B1_prev" placeholder="e.g. 2200000" min="0" oninput="updateYoY(); saveState()">
         </div>
         <div class="field-group">
-          <label for="B2">EBITDA — Current Year (A$) *
+          <label for="B2">EBITDA — Current Year (<span class="cur-sym">A$</span>) *
             <span class="tt" data-tip="Earnings Before Interest, Tax, Depreciation &amp; Amortisation. Add back owner's salary above market rate, one-off items, and non-cash charges.">?</span>
           </label>
           <input type="number" id="B2" placeholder="e.g. 500000" oninput="updateCalc(); updateYoY(); saveState()">
         </div>
         <div class="field-group">
-          <label for="B2_prev">EBITDA — Prior Year (A$)</label>
+          <label for="B2_prev">EBITDA — Prior Year (<span class="cur-sym">A$</span>)</label>
           <input type="number" id="B2_prev" placeholder="e.g. 420000" oninput="updateYoY(); saveState()">
         </div>
       </div>
@@ -1265,13 +1366,13 @@ input[type="radio"], input[type="checkbox"] { display: none; }
           </div>
           <div class="card-grid" style="margin-top:14px;">
             <div class="field-group">
-              <label for="D2a">Reported EBITDA (A$)
+              <label for="D2a">Reported EBITDA (<span class="cur-sym">A$</span>)
                 <span class="tt" data-tip="Earnings Before Interest, Tax, Depreciation and Amortisation. Use the same figure as B2 above.">?</span>
               </label>
               <input type="number" id="D2a" placeholder="Pulled from Section 2" oninput="updateCalc(); saveState()">
             </div>
             <div class="field-group">
-              <label for="D2b">Normalised / Adjusted EBITDA (A$)
+              <label for="D2b">Normalised / Adjusted EBITDA (<span class="cur-sym">A$</span>)
                 <span class="tt" data-tip="Normalised EBITDA adds back non-recurring costs, excess owner salary above market, one-off legal costs, and removes one-off income. This is the figure used in valuation.">?</span>
               </label>
               <input type="number" id="D2b" placeholder="e.g. after owner salary add-back" oninput="updateCalc(); saveState()">
@@ -2061,6 +2162,53 @@ input[type="radio"], input[type="checkbox"] { display: none; }
 // ============================================================
 const STORAGE_KEY = 'bvq_v2';
 
+// ── CURRENCIES ──────────────────────────────────────────────
+const CURRENCIES = {
+  AU: { symbol: 'A$',  code: 'AUD', name: 'Australian Dollar', locale: 'en-AU', flag: '🇦🇺' },
+  US: { symbol: 'US$', code: 'USD', name: 'US Dollar',          locale: 'en-US', flag: '🇺🇸' },
+  CA: { symbol: 'C$',  code: 'CAD', name: 'Canadian Dollar',    locale: 'en-CA', flag: '🇨🇦' },
+  GB: { symbol: '£',   code: 'GBP', name: 'British Pound',      locale: 'en-GB', flag: '🇬🇧' },
+};
+let selectedCurrency = CURRENCIES.AU;
+
+// ── STATES / PROVINCES / COUNTIES ───────────────────────────
+const REGIONS = {
+  AU: ['Australian Capital Territory','New South Wales','Northern Territory','Queensland','South Australia','Tasmania','Victoria','Western Australia'],
+  US: ['Alabama','Alaska','Arizona','Arkansas','California','Colorado','Connecticut','Delaware','Florida','Georgia','Hawaii','Idaho','Illinois','Indiana','Iowa','Kansas','Kentucky','Louisiana','Maine','Maryland','Massachusetts','Michigan','Minnesota','Mississippi','Missouri','Montana','Nebraska','Nevada','New Hampshire','New Jersey','New Mexico','New York','North Carolina','North Dakota','Ohio','Oklahoma','Oregon','Pennsylvania','Rhode Island','South Carolina','South Dakota','Tennessee','Texas','Utah','Vermont','Virginia','Washington','West Virginia','Wisconsin','Wyoming','Washington D.C.'],
+  CA: ['Alberta','British Columbia','Manitoba','New Brunswick','Newfoundland & Labrador','Northwest Territories','Nova Scotia','Nunavut','Ontario','Prince Edward Island','Québec','Saskatchewan','Yukon'],
+  GB: ['England — East Midlands','England — East of England','England — Greater London','England — North East','England — North West','England — South East','England — South West','England — West Midlands','England — Yorkshire & the Humber','Northern Ireland','Scotland','Wales'],
+};
+
+function onCountryChange() {
+  const country = document.getElementById('bizCountry').value;
+  const stateEl = document.getElementById('bizState');
+
+  // populate state dropdown
+  stateEl.innerHTML = '<option value="">— Select region —</option>';
+  if (country && REGIONS[country]) {
+    REGIONS[country].forEach(r => {
+      const o = document.createElement('option');
+      o.value = r; o.textContent = r;
+      stateEl.appendChild(o);
+    });
+    stateEl.disabled = false;
+  } else {
+    stateEl.innerHTML = '<option value="">— Select country first —</option>';
+    stateEl.disabled = true;
+  }
+
+  // set currency
+  const cur = CURRENCIES[country] || null;
+  selectedCurrency = cur || CURRENCIES.AU;
+  document.getElementById('curFlag').textContent   = cur ? cur.flag   : '🌐';
+  document.getElementById('curSymBig').textContent = cur ? cur.symbol : '—';
+  document.getElementById('curNameSm').textContent = cur ? cur.name   : 'Select a country';
+
+  // update all cur-sym spans throughout the form
+  document.querySelectorAll('.cur-sym').forEach(el => el.textContent = selectedCurrency.symbol);
+  updateCalc();
+}
+
 const SECTIONS = [
   { id: 's1',  name: 'Intake',       short: 'Intake' },
   { id: 's2',  name: 'Financials',   short: 'Financials' },
@@ -2079,7 +2227,7 @@ const SECTIONS = [
 
 // Fields tracked per section for completion %
 const SECTION_TRACKED = {
-  s1:  ['legalName','industry','headcount','yearFounded','contactName','contactEmail'],
+  s1:  ['bizCountry','bizState','legalName','industry','headcount','yearFounded','contactName','contactEmail'],
   s2:  ['B1','B2','B3','B4','B5','B6','B7','B8','B9','B10','B11','BGPM'],
   s3:  ['D1','D2b','D3','D4','D5','D6'],
   s4:  ['G1','G2','G3','G4','G5'],
@@ -2246,6 +2394,7 @@ function collectAllData() {
     if (el.id) data[el.id] = el.checked;
   });
   data._section = currentSection;
+  data._country = document.getElementById('bizCountry')?.value || '';
   return data;
 }
 
@@ -2312,6 +2461,18 @@ function restoreData(data) {
       el.value = data[key];
     }
   });
+  // restore country/currency after all fields are set
+  const country = data._country || document.getElementById('bizCountry')?.value;
+  if (country) {
+    const countryEl = document.getElementById('bizCountry');
+    if (countryEl) countryEl.value = country;
+    onCountryChange();
+    // restore state after onCountryChange repopulates the dropdown
+    if (data.bizState) {
+      const stateEl = document.getElementById('bizState');
+      if (stateEl) stateEl.value = data.bizState;
+    }
+  }
   updateYoY();
   updateCalc();
   updateCompletionBadges();
@@ -2460,6 +2621,8 @@ function autoMapSector() {
 function validateSection(n) {
   const errors = [];
   if (n === 1) {
+    if (!getFieldValue('bizCountry')) errors.push({ cardId: 'card-s1-location', msg: 'Please select your country.' });
+    if (getFieldValue('bizCountry') && !getFieldValue('bizState')) errors.push({ cardId: 'card-s1-location', msg: 'Please select your state / province / county.' });
     if (!getFieldValue('legalName').trim()) errors.push({ cardId: 'card-s1-basic', msg: 'Legal Business Name is required.' });
     if (!getFieldValue('industry')) errors.push({ cardId: 'card-s1-basic', msg: 'Please select your industry.' });
     if (!getFieldValue('headcount')) errors.push({ cardId: 'card-s1-basic', msg: 'Please select number of employees.' });
@@ -2644,7 +2807,7 @@ function updateCalc() {
     return;
   }
 
-  ebitdaEl.textContent = 'A$' + formatNum(ebitda);
+  ebitdaEl.textContent = selectedCurrency.symbol + formatNum(ebitda);
 
   const range = getMultipleRange(d1Val);
   if (!range) {
@@ -2665,9 +2828,10 @@ function updateCalc() {
   const lowVal = ebitda * low;
   const highVal = ebitda * high;
 
-  totalEl.textContent = 'A$' + formatNum(Math.round(midVal));
+  totalEl.textContent = selectedCurrency.symbol + formatNum(Math.round(midVal));
   if (rangeDisplayEl) {
-    rangeDisplayEl.textContent = 'Range: A$' + formatNum(Math.round(lowVal)) + ' – A$' + formatNum(Math.round(highVal));
+    const sym = selectedCurrency.symbol;
+    rangeDisplayEl.textContent = 'Range: ' + sym + formatNum(Math.round(lowVal)) + ' – ' + sym + formatNum(Math.round(highVal));
   }
 }
 
@@ -2816,12 +2980,12 @@ function copyShareLink() {
 // ============================================================
 function formatNum(n) {
   if (isNaN(n) || n === null || n === undefined) return '—';
-  return n.toLocaleString('en-AU');
+  return n.toLocaleString(selectedCurrency.locale);
 }
 
 function fmtCurrency(n) {
   if (isNaN(n) || n === null) return '—';
-  return 'A$' + Math.round(n).toLocaleString('en-AU');
+  return selectedCurrency.symbol + Math.round(n).toLocaleString(selectedCurrency.locale);
 }
 
 
