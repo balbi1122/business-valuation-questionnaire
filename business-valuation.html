@@ -73,17 +73,13 @@ header {
   gap: 16px;
 }
 .header-logo {
-  width: 44px;
-  height: 44px;
-  background: var(--accent);
-  border-radius: 8px;
   display: flex;
   align-items: center;
-  justify-content: center;
-  font-weight: 800;
-  font-size: 18px;
-  color: #fff;
   flex-shrink: 0;
+}
+.header-logo svg {
+  height: 48px;
+  width: auto;
 }
 .header-text h1 {
   font-size: 17px;
@@ -960,10 +956,30 @@ input[type="radio"], input[type="checkbox"] { display: none; }
 <!-- HEADER -->
 <header>
   <div class="header-inner">
-    <div class="header-logo">BV</div>
+    <div class="header-logo">
+      <!-- SME Association of Australia logo -->
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 220 72" aria-label="SME Association of Australia">
+        <!-- Speech bubble body -->
+        <ellipse cx="95" cy="29" rx="88" ry="27" fill="#1A6FC4"/>
+        <!-- Speech bubble tail (bottom-left) -->
+        <polygon points="18,50 4,68 52,50" fill="#1A6FC4"/>
+        <!-- "sme" text -->
+        <text x="95" y="39"
+              font-family="'Arial Rounded MT Bold','Nunito','Arial',sans-serif"
+              font-size="28" font-weight="900"
+              fill="#ffffff" text-anchor="middle"
+              letter-spacing="1">sme</text>
+        <!-- "ASSOCIATION OF AUSTRALIA" -->
+        <text x="113" y="63"
+              font-family="'Helvetica Neue','Arial',sans-serif"
+              font-size="7.8" font-weight="600"
+              fill="rgba(255,255,255,0.82)" text-anchor="middle"
+              letter-spacing="2.2">ASSOCIATION OF AUSTRALIA</text>
+      </svg>
+    </div>
     <div class="header-text">
       <h1>Business Valuation Questionnaire</h1>
-      <p>SME Association of Australia — Confidential Assessment</p>
+      <p>Confidential Assessment</p>
     </div>
     <div class="header-actions">
       <button class="share-btn" id="share-btn" onclick="copyShareLink()">
