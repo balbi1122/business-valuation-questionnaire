@@ -1,7 +1,7 @@
 import React from 'react';
 import {interpolate, spring, useCurrentFrame, useVideoConfig} from 'remotion';
 import {C, OVERLAP, SLOW} from './tokens';
-import {Card, Chip, Mark, Touch, Words, body, clamp, ease, heading, prog} from './ui';
+import {Card, Chip, Lockup, Mark, Touch, Words, body, clamp, ease, heading, prog} from './ui';
 
 // ---- shared shell: crossfade + push/pull camera. `n` is nominal scene time (frames), slowed if `slow`.
 const Shell: React.FC<{len: number; first?: boolean; last?: boolean; z0: number; z1: number; slow?: number; origin?: string;
@@ -100,14 +100,9 @@ export const Scene2: React.FC = () => {
             <div style={{position: 'absolute', left: 0, right: 0, top: 150 - shift * 40, display: 'flex', justifyContent: 'center', opacity: 1 - shift * 0.55}}>
               <Words text="Introducing" f={n} start={0} step={6} size={64} weight={600} color={C.muted} />
             </div>
-            <div style={{position: 'absolute', left: 0, right: 0, top: 290 - shift * 120, display: 'flex', justifyContent: 'center', alignItems: 'center', gap: 44}}>
-              <div style={{transform: `translateY(${drop}px) scale(${sx}, ${sy})`, transformOrigin: '50% 100%'}}>
-                <Mark size={220} needleDeg={needle} />
-              </div>
-              <div style={{fontFamily: heading, fontWeight: 800, letterSpacing: '-0.02em', fontSize: 132, lineHeight: 1, whiteSpace: 'nowrap', display: 'flex', gap: 30}}>
-                <span style={{color: C.ink, opacity: prog(n, 66, 82), filter: `blur(${(1 - prog(n, 66, 82)) * 14}px)`, transform: `translateY(${(1 - prog(n, 66, 82)) * 16}px)`}}>AI Ready</span>
-                <span style={{color: C.primary, opacity: prog(n, 74, 90), filter: `blur(${(1 - prog(n, 74, 90)) * 14}px)`, transform: `translateY(${(1 - prog(n, 74, 90)) * 16}px)`}}>Score</span>
-              </div>
+            <div style={{position: 'absolute', left: 0, right: 0, top: 290 - shift * 120, display: 'flex', justifyContent: 'center'}}>
+              <Lockup markSize={220} fontSize={132} gap={44} needleDeg={needle} slide={prog(n, 60, 92)} w1={prog(n, 66, 82)} w2={prog(n, 74, 90)}
+                markStyle={{transform: `translateY(${drop}px) scale(${sx}, ${sy})`, transformOrigin: '50% 100%'}} />
             </div>
             <div style={{position: 'absolute', left: 0, right: 0, top: 640, display: 'flex', justifyContent: 'center'}}>
               <Words text="Know where you stand" f={n} start={110} step={7} size={108} shimmerFrom={1} />
@@ -308,14 +303,9 @@ export const Scene6: React.FC = () => {
         const fade = 1 - prog(n, 164, 180);
         return (
           <div style={{position: 'absolute', inset: 0, opacity: fade}}>
-            <div style={{position: 'absolute', left: 0, right: 0, top: 330, display: 'flex', justifyContent: 'center', alignItems: 'center', gap: 56}}>
-              <div style={{transform: `translateY(${drop}px) scale(${2 - sy}, ${sy})`, transformOrigin: '50% 100%'}}>
-                <Mark size={280} needleDeg={needle} />
-              </div>
-              <div style={{fontFamily: heading, fontWeight: 800, letterSpacing: '-0.02em', fontSize: 170, lineHeight: 1, whiteSpace: 'nowrap', display: 'flex', gap: 40}}>
-                <span style={{color: C.ink, opacity: w1, filter: `blur(${(1 - w1) * 14}px)`, transform: `translateY(${(1 - w1) * 16}px)`}}>AI Ready</span>
-                <span style={{color: C.primary, opacity: w2, filter: `blur(${(1 - w2) * 14}px)`, transform: `translateY(${(1 - w2) * 16}px)`}}>Score</span>
-              </div>
+            <div style={{position: 'absolute', left: 0, right: 0, top: 330, display: 'flex', justifyContent: 'center'}}>
+              <Lockup markSize={280} fontSize={170} gap={56} needleDeg={needle} slide={prog(n, 36, 66)} w1={w1} w2={w2}
+                markStyle={{transform: `translateY(${drop}px) scale(${2 - sy}, ${sy})`, transformOrigin: '50% 100%'}} />
             </div>
             <div style={{position: 'absolute', left: 0, right: 0, top: 700, display: 'flex', justifyContent: 'center'}}>
               <Words text="Know how AI-ready your business really is." f={n} start={70} step={5} size={58} weight={700} color={C.ink} />

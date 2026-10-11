@@ -1,5 +1,5 @@
 import React from 'react';
-import {interpolate, spring, useCurrentFrame, useVideoConfig, Easing} from 'remotion';
+import {interpolate, spring, useCurrentFrame, useVideoConfig, Easing, delayRender, continueRender} from 'remotion';
 import {LOGO_PATHS, NEEDLE, HUB} from './logoPaths';
 import {C} from './tokens';
 
@@ -76,6 +76,32 @@ export const Touch: React.FC<{x: number; y: number; f: number; tapAt: number; sh
     <div style={{position: 'absolute', left: x, top: y, opacity: show}}>
       <div style={{position: 'absolute', left: -60, top: -60, width: 120, height: 120, borderRadius: 60, border: `4px solid ${C.primary}`, opacity: f >= tapAt ? (1 - r) * 0.8 : 0, transform: `scale(${0.4 + r * 1.2})`}} />
       <div style={{position: 'absolute', left: -32, top: -32, width: 64, height: 64, borderRadius: 32, background: 'rgba(16,39,71,0.28)', border: '3px solid rgba(255,255,255,0.9)', boxShadow: '0 8px 24px rgba(16,39,71,0.3)', transform: `scale(${press})`}} />
+    </div>
+  );
+};
+
+// Logo lockup: the mark lands centered, then slides left as the wordmark fades in, so it is never off-center.
+export const Lockup: React.FC<{markSize: number; fontSize: number; gap: number; markStyle: React.CSSProperties; needleDeg: number;
+  slide: number; w1: number; w2: number}> = ({markSize, fontSize, gap, markStyle, needleDeg, slide, w1, w2}) => {
+  const ref = React.useRef<HTMLDivElement>(null);
+  const [ww, setWw] = React.useState(fontSize * 5.3);
+  const [handle] = React.useState(() => delayRender('lockup-measure'));
+  React.useLayoutEffect(() => {
+    document.fonts.ready.then(() => {
+      if (ref.current) setWw(ref.current.offsetWidth);
+      continueRender(handle);
+    });
+  }, [handle]);
+  const word = (p: number): React.CSSProperties => ({opacity: p, filter: `blur(${(1 - p) * 14}px)`, transform: `translateY(${(1 - p) * 16}px)`});
+  return (
+    <div style={{display: 'flex', alignItems: 'center', gap}}>
+      <div style={{transform: `translateX(${(1 - slide) * (ww + gap) / 2}px)`}}>
+        <div style={markStyle}><Mark size={markSize} needleDeg={needleDeg} /></div>
+      </div>
+      <div ref={ref} style={{fontFamily: heading, fontWeight: 800, letterSpacing: '-0.02em', fontSize, lineHeight: 1, whiteSpace: 'nowrap', display: 'flex', gap: fontSize * 0.26}}>
+        <span style={{color: C.ink, ...word(w1)}}>AI Ready</span>
+        <span style={{color: C.primary, ...word(w2)}}>Score</span>
+      </div>
     </div>
   );
 };
