@@ -65,7 +65,7 @@ export const Card: React.FC<{style?: React.CSSProperties; children?: React.React
 );
 
 export const Chip: React.FC<{label: string; color: string; style?: React.CSSProperties}> = ({label, color, style}) => (
-  <div style={{display: 'inline-block', background: color, color: C.white, fontFamily: heading, fontWeight: 800, fontSize: 22, padding: '8px 18px', borderRadius: 999, letterSpacing: '0.02em', ...style}}>{label}</div>
+  <div style={{display: 'inline-block', background: color, color: C.white, fontFamily: heading, fontWeight: 800, fontSize: 28, padding: '8px 20px', borderRadius: 999, letterSpacing: '0.02em', ...style}}>{label}</div>
 );
 
 // Soft touch indicator with a tap ripple.

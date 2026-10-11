@@ -20,16 +20,13 @@ def click():
     return (rng.standard_normal(n) * 0.5 + np.sin(2 * np.pi * 1800 * x)) * env(n, 0.0005, 0.008)
 
 def swoosh(dur=0.55, up=True):
-    n = int(dur * SR); x = np.arange(n) / SR
-    noise = rng.standard_normal(n)
-    # one-pole band sweep via moving lowpass difference
-    k = np.linspace(0.02, 0.35, n) if up else np.linspace(0.35, 0.02, n)
-    y = np.zeros(n); lp = 0.0
-    for i in range(n):
-        lp += k[i] * (noise[i] - lp); y[i] = lp
-    y = y - np.convolve(y, np.ones(200) / 200, mode='same')
-    w = np.sin(np.pi * x / dur) ** 2
-    return y * w * 1.2
+    # Smooth tonal glide (no noise): two soft sine voices a fifth apart sweeping together, hann-shaped.
+    n = int(dur * SR); x = np.arange(n) / SR; u = x / dur
+    f = 260 * (2.0 ** (1.15 * (u if up else 1 - u)))
+    ph = 2 * np.pi * np.cumsum(f) / SR
+    y = np.sin(ph) + 0.5 * np.sin(1.5 * ph) + 0.18 * np.sin(2 * ph)
+    w = np.sin(np.pi * u) ** 2.5
+    return y * w * 0.9
 
 def chime(f=1046.5, dur=0.9):
     n = int(dur * SR); x = np.arange(n) / SR

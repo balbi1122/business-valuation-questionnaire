@@ -62,18 +62,18 @@ export const Scene1: React.FC = () => {
                 <div style={{position: 'absolute', left: 90, bottom: -22, width: 60, height: 60, background: C.ink, borderRadius: 8, transform: 'rotate(45deg)', zIndex: -1}} />
               </div>
             </div>
-            <div style={{position: 'absolute', left: 0, right: 0, top: 300, display: 'flex', justifyContent: 'center', opacity: gaugeIn, transform: `scale(${0.8 + 0.2 * gaugeIn})`}}>
+            <div style={{position: 'absolute', left: 0, right: 0, top: 270, display: 'flex', justifyContent: 'center', opacity: gaugeIn, transform: `scale(${0.8 + 0.2 * gaugeIn})`}}>
               <Mark size={420} needleDeg={needle} />
             </div>
-            <div style={{position: 'absolute', left: 0, right: 0, top: 745, display: 'flex', justifyContent: 'center'}}>
-              <Words text="Eight dimensions. 29 quick questions." f={n} start={140} step={6} size={50} weight={700} color={C.ink} />
+            <div style={{position: 'absolute', left: 0, right: 0, top: 715, display: 'flex', justifyContent: 'center'}}>
+              <Words text="Eight dimensions. 29 quick questions." f={n} start={140} step={6} size={58} weight={700} color={C.ink} />
             </div>
-            <div style={{position: 'absolute', left: 160, right: 160, top: 850, display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 18}}>
+            <div style={{position: 'absolute', left: 100, right: 100, top: 815, display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 16}}>
               {DIMS.map(([name], i) => {
                 const t = spring({frame: n - (165 + i * 4), fps, config: {damping: 13, stiffness: 140}});
                 return (
-                  <div key={name} style={{background: C.surface, border: `2px solid ${C.border}`, borderRadius: 18, padding: '16px 14px', textAlign: 'center',
-                    fontFamily: heading, fontWeight: 700, fontSize: 24, color: C.ink, transform: `scale(${n < 165 + i * 4 ? 0 : t})`, opacity: Math.min(1, t)}}>{name}</div>
+                  <div key={name} style={{background: C.surface, border: `2px solid ${C.border}`, borderRadius: 18, padding: '14px 12px', textAlign: 'center',
+                    fontFamily: heading, fontWeight: 700, fontSize: 30, lineHeight: 1.15, color: C.ink, transform: `scale(${n < 165 + i * 4 ? 0 : t})`, opacity: Math.min(1, t)}}>{name}</div>
                 );
               })}
             </div>
@@ -131,34 +131,34 @@ export const Scene3: React.FC = () => {
         const gapOn = prog(n, 128, 150);
         return (
           <>
-            <div style={{position: 'absolute', left: 0, right: 0, top: 70, display: 'flex', justifyContent: 'center'}}>
+            <div style={{position: 'absolute', left: 0, right: 0, top: 50, display: 'flex', justifyContent: 'center'}}>
               <Words text="Scores your readiness" f={n} start={0} step={6} size={84} />
             </div>
-            <div style={{position: 'absolute', left: 410, top: 230, width: 1100, transform: `translateY(${(1 - (n < 14 ? 0 : rise)) * 500}px)`, opacity: n < 14 ? 0 : 1}}>
-              <Card style={{padding: '36px 48px 28px'}}>
-                <div style={{fontFamily: heading, fontWeight: 800, fontSize: 22, letterSpacing: '0.2em', color: C.primary}}>AI READY SCORE</div>
-                <div style={{fontFamily: heading, fontWeight: 800, fontSize: 44, color: C.ink, marginBottom: 14}}>Diagnostic Report</div>
+            <div style={{position: 'absolute', left: 290, top: 175, width: 1340, transform: `translateY(${(1 - (n < 14 ? 0 : rise)) * 500}px)`, opacity: n < 14 ? 0 : 1}}>
+              <Card style={{padding: '32px 56px 26px'}}>
+                <div style={{fontFamily: heading, fontWeight: 800, fontSize: 28, letterSpacing: '0.2em', color: C.primary}}>AI READY SCORE</div>
+                <div style={{fontFamily: heading, fontWeight: 800, fontSize: 58, color: C.ink, marginBottom: 10}}>Diagnostic Report</div>
                 {REPORT.map(([name, v], i) => {
                   const p = prog(n, 40 + i * 12, 78 + i * 12);
                   const isGap = i === 3;
                   const col = isGap ? C.accent : C.primary;
                   return (
-                    <div key={name} style={{height: 80, display: 'flex', flexDirection: 'column', justifyContent: 'center'}}>
+                    <div key={name} style={{height: 90, display: 'flex', flexDirection: 'column', justifyContent: 'center'}}>
                       <div style={{display: 'flex', justifyContent: 'space-between', alignItems: 'baseline', marginBottom: 10}}>
-                        <span style={{fontFamily: heading, fontWeight: 700, fontSize: 28, color: C.ink}}>{name}</span>
-                        <span style={{fontFamily: heading, fontWeight: 800, fontSize: 34, color: isGap && gapOn > 0.5 ? C.accent : C.ink}}>{(v * p).toFixed(1)}<span style={{fontSize: 22, color: C.muted, fontWeight: 600}}>/10</span></span>
+                        <span style={{fontFamily: heading, fontWeight: 700, fontSize: 38, color: C.ink}}>{name}</span>
+                        <span style={{fontFamily: heading, fontWeight: 800, fontSize: 46, color: isGap && gapOn > 0.5 ? C.accent : C.ink}}>{(v * p).toFixed(1)}<span style={{fontSize: 30, color: C.muted, fontWeight: 600}}>/10</span></span>
                       </div>
-                      <div style={{height: 14, borderRadius: 7, background: C.surface}}>
-                        <div style={{height: 14, borderRadius: 7, width: `${(v / 10) * 100 * p}%`, background: col}} />
+                      <div style={{height: 16, borderRadius: 8, background: C.surface}}>
+                        <div style={{height: 16, borderRadius: 8, width: `${(v / 10) * 100 * p}%`, background: col}} />
                       </div>
                     </div>
                   );
                 })}
-                <div style={{marginTop: 18, borderRadius: 18, border: `2px solid ${C.accent}`, background: `${C.accent}1F`, padding: '20px 26px', opacity: gapOn, transform: `translateY(${(1 - gapOn) * 20}px)`}}>
-                  <span style={{fontFamily: heading, fontWeight: 800, fontSize: 26, color: C.accent}}>Biggest Gap  </span>
-                  <span style={{fontFamily: body, fontSize: 26, color: C.ink}}>AI Vulnerability &amp; Disruption: exposure to AI-driven competitors needs attention.</span>
+                <div style={{marginTop: 14, borderRadius: 18, border: `2px solid ${C.accent}`, background: `${C.accent}1F`, padding: '16px 28px', opacity: gapOn, transform: `translateY(${(1 - gapOn) * 20}px)`}}>
+                  <span style={{fontFamily: heading, fontWeight: 800, fontSize: 34, color: C.accent}}>Biggest Gap  </span>
+                  <span style={{fontFamily: body, fontSize: 34, color: C.ink}}>AI Vulnerability &amp; Disruption: exposure to AI-driven competitors needs attention.</span>
                 </div>
-                <div style={{marginTop: 14, fontFamily: body, fontStyle: 'italic', fontSize: 20, color: C.muted, opacity: prog(n, 60, 80)}}>Illustrative example. Scores shown are not real results.</div>
+                <div style={{marginTop: 12, fontFamily: body, fontStyle: 'italic', fontSize: 26, color: C.muted, opacity: prog(n, 60, 80)}}>Illustrative example. Scores shown are not real results.</div>
               </Card>
             </div>
           </>
@@ -171,7 +171,7 @@ export const Scene3: React.FC = () => {
 // ---------- 4. Shows what to fix first (12s, slowed 10%)
 export const Scene4: React.FC = () => {
   const {fps} = useVideoConfig();
-  const GX = 115, GY = 240, CW = 400, CH = 250, GAP = 30;
+  const GX = 64, GY = 215, CW = 430, CH = 310, GAP = 24;
   const TX = GX + 2 * (CW + GAP) + CW / 2, TY = GY + CH / 2;
   return (
     <Shell len={360} z0={1} z1={1.03} slow={SLOW}>
@@ -200,16 +200,16 @@ export const Scene4: React.FC = () => {
                 const isGap = i === 2;
                 return (
                   <div key={name} style={{position: 'absolute', left: gx, top: gy, width: CW, height: CH, opacity: (n < 22 + i * 4 ? 0 : 1) * (isGap ? 1 : dim), transform: `scale(${n < 22 + i * 4 ? 0.2 : 0.3 + 0.7 * s})`}}>
-                    <Card style={{width: CW, height: CH, padding: 26, boxSizing: 'border-box', borderColor: isGap && zoom > 0 ? C.accent : C.border}}>
-                      <div style={{fontFamily: heading, fontWeight: 800, fontSize: 22, color: C.primary, letterSpacing: '0.1em'}}>{String(i + 1).padStart(2, '0')}</div>
-                      <div style={{fontFamily: heading, fontWeight: 800, fontSize: 30, color: C.ink, lineHeight: 1.12, margin: '8px 0 10px'}}>{name}</div>
-                      <div style={{fontFamily: body, fontSize: 21, color: C.muted, lineHeight: 1.3}}>{q}</div>
+                    <Card style={{width: CW, height: CH, padding: 28, boxSizing: 'border-box', borderColor: isGap && zoom > 0 ? C.accent : C.border}}>
+                      <div style={{fontFamily: heading, fontWeight: 800, fontSize: 28, color: C.primary, letterSpacing: '0.1em'}}>{String(i + 1).padStart(2, '0')}</div>
+                      <div style={{fontFamily: heading, fontWeight: 800, fontSize: 38, color: C.ink, lineHeight: 1.1, margin: '8px 0 12px'}}>{name}</div>
+                      <div style={{fontFamily: body, fontSize: 27, color: C.muted, lineHeight: 1.28}}>{q}</div>
                     </Card>
                     {isGap && <Chip label="Biggest Gap" color={C.accent} style={{position: 'absolute', right: 18, top: -16, opacity: prog(n, 90, 104)}} />}
                     {isGap && (
                       <div style={{position: 'absolute', left: 0, top: CH + 14, width: CW, borderRadius: 18, border: `2px solid ${C.accent}`, background: C.white,
-                        padding: '16px 20px', boxSizing: 'border-box', opacity: panel * (1 - prog(n, 205, 225)), transform: `translateY(${(1 - panel) * -14}px)`, boxShadow: '0 20px 40px rgba(16,39,71,0.14)'}}>
-                        <div style={{fontFamily: body, fontSize: 22, color: C.ink, lineHeight: 1.3}}>Exposure to AI-driven competitors needs attention.</div>
+                        padding: '16px 22px', boxSizing: 'border-box', opacity: panel * (1 - prog(n, 205, 225)), transform: `translateY(${(1 - panel) * -14}px)`, boxShadow: '0 20px 40px rgba(16,39,71,0.14)'}}>
+                        <div style={{fontFamily: body, fontSize: 29, color: C.ink, lineHeight: 1.3}}>Exposure to AI-driven competitors needs attention.</div>
                       </div>
                     )}
                   </div>
@@ -218,30 +218,30 @@ export const Scene4: React.FC = () => {
             </div>
             <div style={{position: 'absolute', inset: 0, opacity: tiers, transform: `translateY(${(1 - tiers) * 60}px)`}}>
               {[
-                {x: 170, tag: 'Free', tagCol: C.primary, title: 'Quick Assessment', stat: '29', desc: 'An overall score, a dimension score profile and immediate next steps for each dimension.'},
-                {x: 990, tag: 'Full', tagCol: C.ink, title: 'Full Assessment', stat: '77', desc: 'Detailed dimension findings, risk analysis, cost of inaction, a buyer perspective and a sequenced roadmap.'},
+                {x: 100, tag: 'Free', tagCol: C.primary, title: 'Quick Assessment', stat: '29', desc: 'An overall score, a dimension score profile and immediate next steps for each dimension.'},
+                {x: 1000, tag: 'Full', tagCol: C.ink, title: 'Full Assessment', stat: '77', desc: 'Detailed dimension findings, risk analysis, cost of inaction, a buyer perspective and a sequenced roadmap.'},
               ].map((t, i) => (
-                <div key={t.title} style={{position: 'absolute', left: t.x, top: 230, width: 760}}>
-                  <Card style={{padding: 44, minHeight: i === 1 ? 640 : 520, boxSizing: 'border-box', borderColor: i === 1 && roadmap > 0 ? C.accent : C.border}}>
+                <div key={t.title} style={{position: 'absolute', left: t.x, top: 190, width: 820}}>
+                  <Card style={{padding: 48, minHeight: i === 1 ? 740 : 620, boxSizing: 'border-box', borderColor: i === 1 && roadmap > 0 ? C.accent : C.border}}>
                     <Chip label={t.tag} color={t.tagCol} />
-                    <div style={{fontFamily: heading, fontWeight: 800, fontSize: 46, color: C.ink, marginTop: 18}}>{t.title}</div>
+                    <div style={{fontFamily: heading, fontWeight: 800, fontSize: 58, color: C.ink, marginTop: 18}}>{t.title}</div>
                     <div style={{display: 'flex', alignItems: 'baseline', gap: 16, margin: '8px 0 12px'}}>
-                      <span style={{fontFamily: heading, fontWeight: 800, fontSize: 120, color: C.primary, lineHeight: 1}}>{t.stat}</span>
-                      <span style={{fontFamily: heading, fontWeight: 700, fontSize: 38, color: C.muted}}>questions</span>
+                      <span style={{fontFamily: heading, fontWeight: 800, fontSize: 150, color: C.primary, lineHeight: 1}}>{t.stat}</span>
+                      <span style={{fontFamily: heading, fontWeight: 700, fontSize: 48, color: C.muted}}>questions</span>
                     </div>
-                    <div style={{fontFamily: body, fontSize: 27, color: C.ink, lineHeight: 1.35}}>{t.desc}</div>
+                    <div style={{fontFamily: body, fontSize: 35, color: C.ink, lineHeight: 1.32}}>{t.desc}</div>
                     {i === 1 && (
-                      <div style={{marginTop: 26, borderRadius: 18, border: `2px solid ${C.accent}`, background: `${C.accent}1F`, padding: '18px 24px', opacity: roadmap, transform: `translateY(${(1 - roadmap) * 18}px)`}}>
-                        <span style={{fontFamily: heading, fontWeight: 800, fontSize: 26, color: C.accent}}>Roadmap  </span>
-                        <span style={{fontFamily: body, fontSize: 26, color: C.ink}}>What to do, why, and in what order.</span>
+                      <div style={{marginTop: 26, borderRadius: 18, border: `2px solid ${C.accent}`, background: `${C.accent}1F`, padding: '16px 26px', opacity: roadmap, transform: `translateY(${(1 - roadmap) * 18}px)`}}>
+                        <span style={{fontFamily: heading, fontWeight: 800, fontSize: 34, color: C.accent}}>Roadmap  </span>
+                        <span style={{fontFamily: body, fontSize: 34, color: C.ink}}>What to do, why, and in what order.</span>
                       </div>
                     )}
                   </Card>
                 </div>
               ))}
             </div>
-            <Touch x={1010} y={470} f={n} tapAt={160} show={prog(n, 140, 150) * (1 - prog(n, 196, 206))} />
-            <Touch x={1280} y={560} f={n} tapAt={290} show={prog(n, 272, 282) * (1 - prog(n, 330, 340))} />
+            <Touch x={1090} y={440} f={n} tapAt={160} show={prog(n, 140, 150) * (1 - prog(n, 196, 206))} />
+            <Touch x={1560} y={700} f={n} tapAt={290} show={prog(n, 272, 282) * (1 - prog(n, 330, 340))} />
           </>
         );
       }}
@@ -253,16 +253,16 @@ export const Scene4: React.FC = () => {
 export const Scene5: React.FC = () => {
   const {fps} = useVideoConfig();
   const CARDS = [
-    {x: 190, tag: 'Business Owners', text: 'Understand where your business stands on AI and what deserves attention first.'},
-    {x: 1010, tag: 'Advisers', text: 'Diagnose the client, prepare the conversation and create a useful next step.'},
+    {x: 100, tag: 'Business Owners', text: 'Understand where your business stands on AI and what deserves attention first.'},
+    {x: 990, tag: 'Advisers', text: 'Diagnose the client, prepare the conversation and create a useful next step.'},
     {x: 2020, tag: '01  Assess', text: "AI Ready Score establishes the business's current position."},
-    {x: 2580, tag: '02  Prepare', text: 'Meeting Prep turns client context and researched intelligence into a focused brief.'},
-    {x: 3140, tag: '03  Act', text: 'The owner and adviser decide what to address, test or investigate next.'},
+    {x: 2620, tag: '02  Prepare', text: 'Meeting Prep turns client context and researched intelligence into a focused brief.'},
+    {x: 3220, tag: '03  Act', text: 'The owner and adviser decide what to address, test or investigate next.'},
   ];
   return (
     <Shell len={180} z0={1.04} z1={1}>
       {(n) => {
-        const pan = prog(n, 70, 150) * 1825;
+        const pan = prog(n, 70, 150) * 1940;
         return (
           <>
             <div style={{position: 'absolute', left: 0, right: 0, top: 110, display: 'flex', justifyContent: 'center'}}>
@@ -272,12 +272,12 @@ export const Scene5: React.FC = () => {
               {CARDS.map((c, i) => {
                 const t = spring({frame: n - (22 + (i < 2 ? i * 10 : 40 + i * 3)), fps, config: {damping: 14, stiffness: 100}});
                 const bob = Math.sin((n + i * 20) / 20) * 8;
-                const w = i < 2 ? 720 : 520;
+                const w = i < 2 ? 830 : 560;
                 return (
-                  <div key={c.tag} style={{position: 'absolute', left: c.x, top: 360 + bob, width: w, transform: `translateY(${(1 - Math.min(t, 1)) * 80}px) scale(${0.85 + 0.15 * Math.min(t, 1)})`, opacity: Math.min(1, t * 1.2)}}>
-                    <Card style={{padding: 44, minHeight: 360, boxSizing: 'border-box'}}>
-                      <div style={{fontFamily: heading, fontWeight: 800, fontSize: i < 2 ? 46 : 40, color: i < 2 ? C.primary : C.ink}}>{c.tag}</div>
-                      <div style={{fontFamily: body, fontSize: 29, color: C.ink, lineHeight: 1.38, marginTop: 20}}>{c.text}</div>
+                  <div key={c.tag} style={{position: 'absolute', left: c.x, top: 330 + bob, width: w, transform: `translateY(${(1 - Math.min(t, 1)) * 80}px) scale(${0.85 + 0.15 * Math.min(t, 1)})`, opacity: Math.min(1, t * 1.2)}}>
+                    <Card style={{padding: 48, minHeight: 460, boxSizing: 'border-box'}}>
+                      <div style={{fontFamily: heading, fontWeight: 800, fontSize: i < 2 ? 60 : 52, color: i < 2 ? C.primary : C.ink}}>{c.tag}</div>
+                      <div style={{fontFamily: body, fontSize: 38, color: C.ink, lineHeight: 1.34, marginTop: 20}}>{c.text}</div>
                     </Card>
                   </div>
                 );
@@ -308,9 +308,9 @@ export const Scene6: React.FC = () => {
                 markStyle={{transform: `translateY(${drop}px) scale(${2 - sy}, ${sy})`, transformOrigin: '50% 100%'}} />
             </div>
             <div style={{position: 'absolute', left: 0, right: 0, top: 700, display: 'flex', justifyContent: 'center'}}>
-              <Words text="Know how AI-ready your business really is." f={n} start={70} step={5} size={58} weight={700} color={C.ink} />
+              <Words text="Know how AI-ready your business really is." f={n} start={70} step={5} size={68} weight={700} color={C.ink} />
             </div>
-            <div style={{position: 'absolute', left: 0, right: 0, top: 800, textAlign: 'center', fontFamily: heading, fontWeight: 700, fontSize: 46, color: C.primary, opacity: prog(n, 104, 124)}}>aireadyscore.com</div>
+            <div style={{position: 'absolute', left: 0, right: 0, top: 810, textAlign: 'center', fontFamily: heading, fontWeight: 700, fontSize: 56, color: C.primary, opacity: prog(n, 104, 124)}}>aireadyscore.com</div>
           </div>
         );
       }}
